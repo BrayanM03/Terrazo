@@ -1,13 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Home')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-12 text-center">
+    <h1>Hi {{ auth()->user()->name }} </h1>
+    <div class="row justify-content-center">
+    <div class="col-12 col-md-3">
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <div class="row justify-content-center">
+    <div class="col-12 col-md-12 text-center">
+    <p>Welcome to your administration panel.</p>
+    <div class="row justify-content-center">
+    <div class="col-12 col-md-3">
 @stop
 
 @section('css')
