@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Terraza</b>Corps',
+    'logo_img' => 'vendor/adminlte/dist/img/terraza_logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -85,8 +85,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -246,78 +246,72 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
+       /*  [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
+        ], */
+        
+        ['header' => 'SYSTEM'],
         [
-            'text' => 'profile',
+            'text' => 'Panel',
+            'url'  => 'dash',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
+            'text' => 'New order',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-file-signature',
         ],
+
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'=> 'History',
+            'icon' => 'fas fa-fw fa-history',
             'submenu' => [
+        
                 [
-                    'text' => 'level_one',
+                    'text' => 'Pending orders',
+                    'icon' => 'fas fa-fw fa-stopwatch',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
+                    'text' => 'Orders completed',
+                    'icon' => 'fas fa-fw fa-archive',
                     'url'  => '#',
                 ],
+
+                
             ],
         ],
-        ['header' => 'labels'],
+
+          
+        ['header' => 'DATABASE'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'    => 'Categories',
+            'icon'    => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'Material',
+                    'icon' => 'fas fa-fw fa-faucet',
+                    'url'     => '#',
+                    
+                ],
+                [
+                    'text' => 'Equiptment',
+                    'icon'    => 'fas fa-fw fa-hammer',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Labor',
+                    'icon'    => 'fas fa-fw fa-briefcase',
+                    'url'  => '#',
+                ],
+               
+            ],
         ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+     
     ],
 
     /*

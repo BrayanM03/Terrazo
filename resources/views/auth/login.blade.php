@@ -2,6 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
+           {{-- <img src="{{ url('public/vendor/adminlte/dist/img/terraza_logo.png') }}" /> --}}
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
