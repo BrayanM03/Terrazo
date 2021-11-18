@@ -295,18 +295,23 @@ return [
                 [
                     'text' => 'Material',
                     'icon' => 'fas fa-fw fa-faucet',
-                    'url'     => '#',
+                    'url'     => 'dash/categories/materials',
                     
                 ],
                 [
                     'text' => 'Equiptment',
                     'icon'    => 'fas fa-fw fa-hammer',
-                    'url'  => '#',
+                    'url'  => 'dash/categories/equiptments',
                 ],
                 [
                     'text' => 'Labor',
                     'icon'    => 'fas fa-fw fa-briefcase',
-                    'url'  => '#',
+                    'url'  => 'dash/categories/labors',
+                ],
+                [
+                    'text' => 'Other Expenses',
+                    'icon'    => 'fas fa-fw fa-money-bill-wave',
+                    'url'  => 'dash/categories/other_expenses',
                 ],
                
             ],

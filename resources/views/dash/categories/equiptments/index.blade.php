@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <h1>Hi {{ auth()->user()->name }} </h1>
+    <h1>Equiptment</h1>
     <div class="row justify-content-center">
     <div class="col-12 col-md-3">
 @stop
@@ -13,9 +13,9 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>Welcome to your administration panel.</p>
+    <p>List of equiptments, you can add more.</p>
     <div class="row justify-content-center">
-  
+    <div class="col-12 col-md-3">
 @stop
 
 @section('css')
