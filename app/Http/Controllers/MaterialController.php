@@ -47,7 +47,7 @@ class MaterialController extends Controller
 
         $materials->save();
 
-        return redirect('dash/categories/materials');
+        return redirect('dash/categories/materials')->with('agregar', 'ok');
      
     }
 
@@ -92,7 +92,7 @@ class MaterialController extends Controller
 
         $material->save();
 
-        return redirect('dash/categories/materials');
+        return redirect('dash/categories/materials')->with('actualizar', 'ok');
         
     }
 
@@ -104,6 +104,9 @@ class MaterialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $material = Material::find($id);
+        $material->delete();
+        return redirect('/dash/categories/materials')->with('eliminar', 'ok');
+        
     }
 }

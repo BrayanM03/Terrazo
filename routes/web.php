@@ -30,10 +30,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
 //Route::resource('dash/categories/materials', MaterialController::class);
 Route::resource('dash/categories/materials', 'App\Http\Controllers\MaterialController');
 Route::post('dash/categories/materials/created', [MaterialController::class, 'store']);
-Route::post('dash/categories/materials/updated', [MaterialController::class, 'update']);
 
-Route::resource('dash/categories/equiptments', EquiptmentController::class);
+Route::resource('dash/categories/equiptments', 'App\Http\Controllers\EquiptmentController');
+Route::post('dash/categories/equiptments/created', [EquiptmentController::class, 'store']);
 
-Route::resource('dash/categories/labors', LaborController::class);
 
-Route::resource('dash/categories/other_expenses', OtherExpensisController::class);
+Route::resource('dash/categories/labors', 'App\Http\Controllers\LaborController');
+Route::post('dash/categories/labors/created', [LaborController::class, 'store']);
+
+Route::resource('dash/categories/other_expenses', 'App\Http\Controllers\OtherExpensisController');
+Route::post('dash/categories/other_expenses/created', [OtherExpensisController::class, 'store']);

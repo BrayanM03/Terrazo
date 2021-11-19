@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Labor;
 
 class LaborController extends Controller
 {
@@ -13,9 +14,8 @@ class LaborController extends Controller
      */
     public function index()
     {
-        //
-        
-        return view('dash.categories.labors.index');
+        $labors = Labor::all();
+        return view('dash.categories.labors.index')->with('labors', $labors);
     }
 
     /**
@@ -26,6 +26,9 @@ class LaborController extends Controller
     public function create()
     {
         //
+
+        return view('dash.categories.labors.create');
+
     }
 
     /**
@@ -37,6 +40,15 @@ class LaborController extends Controller
     public function store(Request $request)
     {
         //
+        $labors = new Labor();
+        $labors->unit = $request->get('unit');
+        $labors->description = $request->get('description');
+        $labors->price_per_hour = $request->get('unit_price');
+
+        $labors->save();
+
+        return redirect('dash/categories/labors')->with('agregar', 'ok');
+     
     }
 
     /**
@@ -58,7 +70,8 @@ class LaborController extends Controller
      */
     public function edit($id)
     {
-        //
+        $labor = Labor::find($id);
+        return view('dash.categories.materials.edit')->with('material', $labor);
     }
 
     /**
@@ -71,6 +84,16 @@ class LaborController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $labor =  Labor::find($id);
+        
+        $labor->unit = $request->get('unit');
+        $labor->description = $request->get('description');
+        $labor->price_per_hour = $request->get('unit_price');
+
+        $labor->save();
+
+        return redirect('dash/categories/labors')->with('actualizar', 'ok');
+        
     }
 
     /**
@@ -81,6 +104,9 @@ class LaborController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $labor = Labor::find($id);
+        $labor->delete();
+        return redirect('/dash/categories/labors')->with('eliminar', 'ok');
+        
     }
 }

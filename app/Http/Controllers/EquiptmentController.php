@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Equiptment;
 
 class EquiptmentController extends Controller
 {
@@ -13,8 +14,8 @@ class EquiptmentController extends Controller
      */
     public function index()
     {
-        //
-        return view('dash.categories.equiptments.index');
+        $equiptments = Equiptment::all();
+        return view('dash.categories.equiptments.index')->with('equiptments', $equiptments);;
     }
 
     /**
@@ -25,6 +26,7 @@ class EquiptmentController extends Controller
     public function create()
     {
         //
+        return view('dash.categories.equiptments.create');
     }
 
     /**
@@ -35,7 +37,14 @@ class EquiptmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $materials = new Equiptment();
+        $materials->unit = $request->get('unit');
+        $materials->description = $request->get('description');
+        $materials->unit_price = $request->get('unit_price');
+
+        $materials->save();
+
+        return redirect('dash/categories/equiptments')->with('agregar', 'ok');
     }
 
     /**
@@ -57,7 +66,8 @@ class EquiptmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $equiptment = Equiptment::find($id);
+        return view('dash.categories.equiptments.edit')->with('equiptment', $equiptment);
     }
 
     /**
@@ -69,7 +79,15 @@ class EquiptmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $equiptment =  Equiptment::find($id);
+        
+        $equiptment->unit = $request->get('unit');
+        $equiptment->description = $request->get('description');
+        $equiptment->unit_price = $request->get('unit_price');
+
+        $equiptment->save();
+
+        return redirect('dash/categories/equiptments')->with('actualizar', 'ok');
     }
 
     /**
@@ -80,6 +98,8 @@ class EquiptmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $equiptment = Equiptment::find($id);
+        $equiptment->delete();
+        return redirect('/dash/categories/equiptments')->with('eliminar', 'ok');
     }
 }

@@ -43,7 +43,7 @@
                         </div>
                     </div>
 
-             
+                    <a href="../materials" class="btn btn-info mr-3">Cancel</a>
                     <button type="submit" class="btn btn-success" tabindex="4">Register</button>
                 </form>
                
