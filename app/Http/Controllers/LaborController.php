@@ -71,7 +71,7 @@ class LaborController extends Controller
     public function edit($id)
     {
         $labor = Labor::find($id);
-        return view('dash.categories.materials.edit')->with('material', $labor);
+        return view('dash.categories.labors.edit')->with('labor', $labor);
     }
 
     /**

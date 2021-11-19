@@ -41,7 +41,7 @@
                     <div class="row mb-3 justify-content-center">
                         <div class="col-12 col-md-3">
                             <label for="unity" class="form-label">Unit price</label>
-                            <input type="number" class="form-control" placeholder="0.00" name="unit_price" id="unit_price" value="{{$other_expense->unit_price}}" tabindex="3" required>
+                            <input type="number" class="form-control" placeholder="0.00" step="any" name="unit_price" id="unit_price" value="{{$other_expense->unit_price}}" tabindex="3" required>
                         </div>
                     </div>
 
