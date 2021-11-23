@@ -28,14 +28,15 @@
                 
                  <table id="labors_table" class="table table-bordered table-hover responsive">
                 <thead class="thead-dark">
+                    <tr>
                     <th>#</th>
                     <th>Unity</th>
                     <th>Description</th>
                     <th>Price per hour</th>
                      <th>Actions</th>
-
+                    </tr>
                 </thead>
-                <tbody class="bg-white">
+               {{--  <tbody class="bg-white">
                     @foreach ($labors as $labor)
                         <tr>
                             <td>{{ $labor->id}}</td>
@@ -52,7 +53,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
             </table>
 
             </div>    
@@ -106,16 +107,30 @@
 
 <script>
  
- table = $("#labors_table").DataTable({
+ $("#labors_table").DataTable({
  
+    processing: true,
+    serverSide: true,
     "scrollY": "400px",
-    "responsive" : true
+    "responsive" : true,
+    "ajax": "{{route('datatable.labor')}}",
+    "columns": [
+        {data: 'id'},
+        {data: 'unit'},
+        {data: 'description'},
+        {data: 'price_per_hour'},
+        {data: 'actions'},
+        /* {data: null, render: function(){
+            return '<a class="btn btn-warning mr-2"><i class="fas fa-edit"></i></a>'+
+                                '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>'
+        }}, */
 
-        });
+    ]
+     });
 
 
 
-$(".eliminar_labor").submit(function (e) { 
+/* $(".eliminar_labor").submit(function (e) { 
 
     e.preventDefault();
 
@@ -135,7 +150,7 @@ $(".eliminar_labor").submit(function (e) {
             })
 
  })
-
+ */
 
 
 

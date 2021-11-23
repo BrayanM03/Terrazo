@@ -15,7 +15,7 @@ class EquiptmentController extends Controller
     public function index()
     {
         $equiptments = Equiptment::all();
-        return view('dash.categories.equiptments.index')->with('equiptments', $equiptments);;
+        return view('dash.categories.equiptments.index')->with('equiptments', $equiptments);
     }
 
     /**

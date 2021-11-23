@@ -37,6 +37,7 @@ Route::post('dash/categories/equiptments/created', [EquiptmentController::class,
 
 Route::resource('dash/categories/labors', 'App\Http\Controllers\LaborController');
 Route::post('dash/categories/labors/created', [LaborController::class, 'store']);
+Route::get('datatable/labors', 'App\Http\Controllers\DatatableController@labor')->name('datatable.labor'); //'DatatableController@labor'
 
 Route::resource('dash/categories/other_expenses', 'App\Http\Controllers\OtherExpensisController');
 Route::post('dash/categories/other_expenses/created', [OtherExpensisController::class, 'store']);
