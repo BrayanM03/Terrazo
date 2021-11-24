@@ -22,14 +22,14 @@
             <div class="col-12 col-md-8">
                <br/>
                 <div class="card">
-                    <span href="#" class="list-group-item">
-                        <b>First, select a order type: </b>
-                    </span>
-                    <a href="contract_order/index" class="list-group-item list-group-item-action">New contract Order</a>
-                    <a href="lista-marcas.php" class="list-group-item list-group-item-action">Change Order</a>
-                    <a href="corte.php" class="list-group-item list-group-item-action">Service Call</a>
+                    <div class="row">
+                        <div class="col-12 col-md-12 p-3">
+                            <label for="customer">Customer:</label> 
+                            <input type="text" class="form-control" id="customer" name="customer" placeholder="type customer..">
+                        </div>
+                    </div>
                    
-                    </div>  
+                </div>  
             </div>    
         </div>   
 

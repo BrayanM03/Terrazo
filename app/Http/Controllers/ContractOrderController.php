@@ -9,11 +9,11 @@ class ContractOrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function index()
     {
-        
+        return view('dash.orders.contract_order.index');
     }
 
     /**
@@ -45,7 +45,7 @@ class ContractOrderController extends Controller
      */
     public function show($id)
     {
-        return view('dash.orders.contract_order.index');
+        
     }
 
     /**

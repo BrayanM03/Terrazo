@@ -16,13 +16,17 @@ class NewOrderController extends Controller
         return view('dash.orders.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
   
    
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //return view('dash.orders.contract_order.index');
+    }
     
 }

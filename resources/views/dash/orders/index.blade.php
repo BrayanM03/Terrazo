@@ -13,7 +13,7 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>Generate a new work order Frome here.</p>
+    <p>Generate a new work order From here.</p>
     
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
