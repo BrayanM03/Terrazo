@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Equiptments')
+@section('title', 'New Order')
 
 @section('content_header')
 <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <h1>Equiptment</h1>
+    <h1>New Order</h1>
     <div class="row justify-content-center">
     <div class="col-12 col-md-3">
 @stop
@@ -13,47 +13,29 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>List of equiptments, you can add more.</p>
+    <p>Generate a new work order Frome here.</p>
+    
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
-        <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-12 col-md-12">
-                <a href="equiptments/create"><div class="btn btn-info">Add</div></a>
+        <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+               <br/>
+                <div class="card">
+                    <span href="#" class="list-group-item">
+                        <b>First, select a order type: </b>
+                    </span>
+                    <a href="orders/contract_order" class="list-group-item list-group-item-action">New contract Order</a>
+                    <a href="lista-marcas.php" class="list-group-item list-group-item-action">Change Order</a>
+                    <a href="corte.php" class="list-group-item list-group-item-action">Service Call</a>
+                   
+                    </div>  
             </div>    
         </div>   
 
         <div class="row mt-3 justify-content-center">
             <div class="col-12 col-md-12">
-                
-                 <table id="equiptments_table" class="table table-bordered table-hover responsive">
-                <thead style="background-color: green">
-                    <th>#</th>
-                    <th>Unity</th>
-                    <th>Description</th>
-                    <th>Unit Price</th>
-                     <th>Actions</th>
-
-                </thead>
-               {{--  <tbody class="bg-white">
-                    @foreach ($equiptments as $equiptment)
-                        <tr>
-                            <td>{{ $equiptment->id}}</td>
-                            <td>{{ $equiptment->unit}}</td>
-                            <td>{{ $equiptment->description}}</td>
-                            <td>{{ $equiptment->unit_price}}</td>
-                            <td>
-                                <form action="{{ route ('equiptments.destroy', $equiptment->id )}}" class="eliminar_equiptment" method="POST" style="display:flex;">
-                                <a class="btn btn-warning mr-2" href="equiptments/{{ $equiptment->id}}/edit"><i class="fas fa-edit"></i></a>
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody> --}}
-            </table>
+               
 
             </div>    
         </div> 
@@ -106,13 +88,13 @@
 
 <script>
  
- $("#equiptments_table").DataTable({
+/*  $("#materials_table").DataTable({
  
  processing: true,
  serverSide: true,
  "scrollY": "400px",
  "responsive" : true,
- "ajax": "{{route('datatable.equiptment')}}",
+ "ajax": "{{route('datatable.material')}}",
  "columns": [
      {data: 'id'},
      {data: 'unit'},
@@ -124,17 +106,17 @@
                              '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>'
      }}, */
 
- ]
-  });
+/*  ]
+  }); */ 
 
 
-  function Llamar(e, id){
+/*   function Llamar(e, id){
      e.preventDefault();
-     form = $("#" + id);
+     form = $("#"+id);
      Swal.fire({
          
          title: 'Are you sure to remove this labor?',
-         text: "You won't be able to revert this!",
+         text: "You won't be able to revert this! id: " + id,
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',
@@ -147,6 +129,11 @@
          }
          })
   }
+ */
+
+
+
+
 
 
 

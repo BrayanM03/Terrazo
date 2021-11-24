@@ -129,14 +129,13 @@
      });
 
 
-
-/* $(".eliminar_labor").submit(function (e) { 
-
-    e.preventDefault();
-
-    Swal.fire({
+     function Llamar(e, id){
+        e.preventDefault();
+        form = $("#"+id);
+        Swal.fire({
+            
             title: 'Are you sure to remove this labor?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to revert this! id: " + id,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -145,12 +144,13 @@
             }).then((result) => {
             if (result.isConfirmed) {
             
-            this.submit();
+            form.submit();
             }
             })
+     }
 
- })
- */
+
+
 
 
 

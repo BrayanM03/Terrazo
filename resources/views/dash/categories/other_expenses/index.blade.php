@@ -35,7 +35,7 @@
                      <th>Actions</th>
 
                 </thead>
-                <tbody class="bg-white">
+              {{--   <tbody class="bg-white">
                     @foreach ($other_expenses as $other_expense)
                         <tr>
                             <td>{{ $other_expense->id}}</td>
@@ -52,7 +52,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
             </table>
 
             </div>    
@@ -106,35 +106,48 @@
 
 <script>
  
- table = $("#other_expenses_table").DataTable({
+
+ $("#other_expenses_table").DataTable({
  
-    "scrollY": "400px",
-    "responsive" : true
+ processing: true,
+ serverSide: true,
+ "scrollY": "400px",
+ "responsive" : true,
+ "ajax": "{{route('datatable.other_expenses')}}",
+ "columns": [
+     {data: 'id'},
+     {data: 'unit'},
+     {data: 'description'},
+     {data: 'unit_price'},
+     {data: 'actions'},
+     /* {data: null, render: function(){
+         return '<a class="btn btn-warning mr-2"><i class="fas fa-edit"></i></a>'+
+                             '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>'
+     }}, */
 
-        });
+ ]
+  });
 
 
-
-$(".eliminar_registro").submit(function (e) { 
-
-    e.preventDefault();
-
-    Swal.fire({
-            title: 'Are you sure to remove this register?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-            
-            this.submit();
-            }
-            })
-
- })
+  function Llamar(e, id){
+     e.preventDefault();
+     form = $("#"+id);
+     Swal.fire({
+         
+         title: 'Are you sure to remove this labor?',
+         text: "You won't be able to revert this! id: " + id,
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Yes, delete it!'
+         }).then((result) => {
+         if (result.isConfirmed) {
+         
+         form.submit();
+         }
+         })
+  }
 
 
 

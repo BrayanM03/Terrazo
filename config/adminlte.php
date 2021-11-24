@@ -262,7 +262,7 @@ return [
         ],
         [
             'text' => 'New order',
-            'url'  => 'admin/settings',
+            'url'  => 'dash/orders',
             'icon' => 'fas fa-fw fa-file-signature',
         ],
 
@@ -313,6 +313,21 @@ return [
                     'icon'    => 'fas fa-fw fa-money-bill-wave',
                     'url'  => 'dash/categories/other_expenses',
                 ],
+               
+            ],
+        ],
+
+        [
+            'text'    => 'Persons',
+            'icon'    => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Customers',
+                    'icon' => 'fas fa-fw fa-user-tag',
+                    'url'     => 'dash/persons/customers',
+                    
+                ],
+              
                
             ],
         ],
