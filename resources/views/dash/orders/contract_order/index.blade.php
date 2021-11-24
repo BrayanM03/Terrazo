@@ -25,7 +25,11 @@
                     <div class="row">
                         <div class="col-12 col-md-12 p-3">
                             <label for="customer">Customer:</label> 
-                            <input type="text" class="form-control" id="customer" name="customer" placeholder="type customer..">
+                            <select type="text" style="width: 80%; heigth:80%" class="form-control" id="customer" name="customer">
+                                <option value="">Opcion 1</option>
+                                <option value="">Opcion 2</option>
+                                <option value="">Opcion 3</option>
+                            </select>   
                         </div>
                     </div>
                    
@@ -47,13 +51,15 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">  
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @stop
 
 @section('js')
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if(session('eliminar') == 'ok')
@@ -86,7 +92,45 @@
      </script>
 @endif
 
+<style>
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+</style>
+
 <script>
+
+$('#customer').select2({
+
+    
+            // Activamos la opcion "Tags" del plugin
+            tags: true,
+            tokenSeparators: [','],
+            ajax: {
+                dataType: 'json',
+                url: '{{ url("tags") }}',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        term: params.term
+                    }
+                },
+                processResults: function (data, page) {
+                  return {
+                    results: data
+                  };
+                },
+            }
+        
+
+})
  
 /*  $("#materials_table").DataTable({
  
