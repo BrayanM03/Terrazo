@@ -6,6 +6,8 @@ use App\Http\Controllers\EquiptmentController;
 use App\Http\Controllers\LaborController;
 use App\Http\Controllers\OtherExpensisController; 
 
+use App\Http\Controllers\ContractOrderController; 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +52,7 @@ Route::resource('dash/persons/customers', 'App\Http\Controllers\CustomerControll
 Route::post('dash/persons/customers/created', 'App\Http\Controllers\CustomerController@store' /* [CustomerController::class, 'store'] */);
 Route::get('datatable/customers', 'App\Http\Controllers\DatatableController@customer')->name('datatable.customer');
 
-Route::get('dash/orders','App\Http\Controllers\NewOrderController@index');
-
 //Rutas del new Order
+Route::get('dash/orders','App\Http\Controllers\NewOrderController@index');
 Route::resource('dash/orders/contract_order','App\Http\Controllers\ContractOrderController');
+Route::post('/getCustomers', [ContractOrderController::class, 'getCustomers'])->name('getCustomers');

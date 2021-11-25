@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+
+
 @section('title', 'New Order')
 
 @section('content_header')
@@ -19,17 +21,40 @@
      <div class="col-12 col-md-12">
         <div class="container mt-3">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-12">
                <br/>
                 <div class="card">
-                    <div class="row">
-                        <div class="col-12 col-md-12 p-3">
-                            <label for="customer">Customer:</label> 
-                            <select type="text" style="width: 80%; heigth:80%" class="form-control" id="customer" name="customer">
-                                <option value="">Opcion 1</option>
-                                <option value="">Opcion 2</option>
-                                <option value="">Opcion 3</option>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-7 p-3">
+                            <label for="customer">Customer:</label><br>
+                            <select type="text" class="form-control" id="customer" name="customer">
+                               {{--  <option value="null">Select a customer</option> --}}
+                               
                             </select>   
+                        </div>
+                        <div class="col-12 col-md-3 p-3">
+                            <label for="date">Date</label><br>
+                            <input class="form-control" type="date" id="date" name="date">
+                        </div>
+                    </div>
+
+                    <div class="row justify-3 justify-content-center">
+                        <div class="col-12 col-md-10 p-3">
+                            <label for="re">Re</label><br>
+                            <input type="text" class="form-control" name="re" id="re" placeholder="Type asunt">
+                        </div>
+                    </div>
+
+                    <div class="row justify-3 justify-content-center mb-3">
+                        <div class="col-12 col-md-10 p-3">
+                            <label for="re">Sow</label><br>
+                            <textarea type="text" class="form-control" name="sow" id="sow" placeholder="Type sow"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row justify-3 justify-content-center mb-3">
+                        <div class="col-12 col-md-10 p-3">
+                            <button class="btn btn-primary">Siguiente</button>
                         </div>
                     </div>
                    
@@ -107,28 +132,36 @@
 
 <script>
 
-$('#customer').select2({
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    
-            // Activamos la opcion "Tags" del plugin
-            tags: true,
-            tokenSeparators: [','],
+$('#customer').select2({
+    placeholder: "Select a customer",
+    allowClear: true,
             ajax: {
+                
                 dataType: 'json',
-                url: '{{ url("tags") }}',
-                delay: 250,
+                url: "{{ route('getCustomers') }}",
+                type: 'post',
+               
+                delay: 150,
+              
                 data: function(params) {
                     return {
-                        term: params.term
+                        _token: CSRF_TOKEN,
+                        search: params.term
                     }
                 },
-                processResults: function (data, page) {
+                processResults: function (response) {
                   return {
-                    results: data
+                    results: response 
                   };
                 },
-            }
+                
+
+                cache: true
+            },
         
+            
 
 })
  
