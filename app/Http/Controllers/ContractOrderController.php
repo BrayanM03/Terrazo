@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Material;
+use App\Models\Equiptment;
+use App\Models\Labor;
+use App\Models\OtherExpensis;
 
 class ContractOrderController extends Controller
 {
@@ -58,6 +62,137 @@ class ContractOrderController extends Controller
         return response()->json($response);
     }
 
+    //Funcion para el select2 - concepts
+    public function getMaterials(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $materials = Material::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->limit(10)
+            ->get();
+        }else{
+            $materials = Material::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->where('description', 'like', '%' . $search . '%')
+            ->limit(10)
+            ->get();
+        }
+
+        $response = array();
+
+        foreach($materials as $material){
+
+            $response[] = array(
+                'id' => $material->id,
+                'unit' => $material->unit,
+                'description' => $material->description,
+                'price' => $material->unit_price,
+            ); 
+        }
+
+        return response()->json($response);
+    }
+
+
+    public function getEquiptments(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $Equiptments = Equiptment::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->limit(10)
+            ->get();
+        }else{
+            $Equiptments = Equiptment::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->where('description', 'like', '%' . $search . '%')
+            ->limit(10)
+            ->get();
+        }
+
+        $response = array();
+
+        foreach($Equiptments as $Equiptment){
+
+            $response[] = array(
+                'id' => $Equiptment->id,
+                'unit' => $Equiptment->unit,
+                'description' => $Equiptment->description,
+                'price' => $Equiptment->unit_price,
+            ); 
+        }
+
+        return response()->json($response);
+    }
+
+
+    public function getLabors(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $labors = Labor::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'price_per_hour')
+            ->limit(10)
+            ->get();
+        }else{
+            $labors = Labor::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'price_per_hour')
+            ->where('description', 'like', '%' . $search . '%')
+            ->limit(10)
+            ->get();
+        }
+
+        $response = array();
+
+        foreach($labors as $labor){
+
+            $response[] = array(
+                'id' => $labor->id,
+                'unit' => $labor->unit,
+                'description' => $labor->description,
+                'price' => $labor->price_per_hour,
+            ); 
+        }
+
+        return response()->json($response);
+    }
+
+
+    public function getOtherExpenses(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $others = OtherExpensis::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->limit(10)
+            ->get();
+        }else{
+            $others = OtherExpensis::orderby('description', 'ASC')
+            ->select('id', 'unit', 'description', 'unit_price')
+            ->where('description', 'like', '%' . $search . '%')
+            ->limit(10)
+            ->get();
+        }
+
+        $response = array();
+
+        foreach($others as $other){
+
+            $response[] = array(
+                'id' => $other->id,
+                'unit' => $other->unit,
+                'description' => $other->description,
+                'price' => $other->unit_price,
+            ); 
+        }
+
+        return response()->json($response);
+    }
     /**
      * Show the form for creating a new resource.
      *

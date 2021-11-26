@@ -56,3 +56,9 @@ Route::get('datatable/customers', 'App\Http\Controllers\DatatableController@cust
 Route::get('dash/orders','App\Http\Controllers\NewOrderController@index');
 Route::resource('dash/orders/contract_order','App\Http\Controllers\ContractOrderController');
 Route::post('/getCustomers', [ContractOrderController::class, 'getCustomers'])->name('getCustomers');
+
+//Rutas select2 Contract Concepts
+Route::post('/getMaterials', [ContractOrderController::class, 'getMaterials'])->name('getMaterials');
+Route::post('/getEquiptments', [ContractOrderController::class, 'getEquiptments'])->name('getEquiptments');
+Route::post('/getLabors', [ContractOrderController::class, 'getLabors'])->name('getLabors');
+Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpenses'])->name('getOtherExpenses');

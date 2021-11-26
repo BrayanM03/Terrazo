@@ -272,11 +272,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-6"> 
                                     <p>Concept</p>
                                     <select input class="form-control" id="concept_select" disabled>
-                                        <option value="null">Select category</option>
-                                        <option value="material">Materials</option>
-                                        <option value="equiptment">Equiptments</option>
-                                        <option value="labor">Labors</option>
-                                        <option value="other">Other expenses</option>
+                                      
                                     </select>      
                                 </div>
 
@@ -303,15 +299,92 @@ function recogerInfomacion() {
 
  function ChangeCategory(){
         category = $("#category").val();
-        console.log(category);
+      
         if(category == "null"){
             $("#concept_select").prop("disabled",true);
         }else{
             $("#concept_select").prop("disabled",false);
+
+            switch (category) {
+                case "material":
+                    route = "{{ route('getMaterials') }}"
+                    break;
+
+                case "equiptment":
+                    route = "{{ route('getEquiptments') }}"
+                    break;
+
+                case "labor":
+                    route = "{{ route('getLabors') }}"
+                    break;
+
+                case "other":
+                    route = "{{ route('getOtherExpenses') }}"
+                    break;            
+            
+                default:
+                    break;
+            }
         }
 
-        $("#concept_select").select2()
- }
+
+        $("#concept_select").select2({
+
+            placeholder: "Select a concept",
+           
+            ajax: {
+                
+                dataType: 'json',
+                url: route,
+                type: 'post',      
+                delay: 150,
+              
+                data: function(params) {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                processResults: function (response) {
+                  return {
+                    results: response 
+                  };
+                },
+                
+
+                cache: true
+            },  
+            templateResult: formatRepos,   
+            templateSelection: formatRepoSelections
+
+        });
+
+           
+
+ } 
+ 
+          //Plantilla Select2
+          function formatRepos (repo) {
+            if (repo.loading) {
+                return repo.description;
+            }
+
+            var $container = $(
+                "<div><div style='display:flex; justify-content:space-between; padding:4px;'>"+ repo.description +"<span class='badge badge-warning badge-pill'>"+ repo.price +"</span></div></div>" 
+            );
+
+            return $container;
+            }
+
+            function formatRepoSelections (repo) {
+           // $("#store_number").val(repo.code_store)  
+           console.log(repo.description);
+            return repo.description;
+            
+            }
+ 
+ 
+ //Fin select2
 
  function AddConcept() {
 
