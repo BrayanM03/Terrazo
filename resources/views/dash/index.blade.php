@@ -15,7 +15,7 @@
     <div class="col-12 col-md-12 text-center">
     <p>Welcome to your administration panel.</p>
     <div class="row justify-content-center">
-  
+
 @stop
 
 @section('css')

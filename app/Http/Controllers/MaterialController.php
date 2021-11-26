@@ -12,10 +12,14 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materials = Material::all();
+       /*  $materials = Material::all();
         return view('dash.categories.materials.index')->with('materials', $materials);
+ */
+        $session = $request->session()->all();
+        return $session;
+
     }
 
     /**

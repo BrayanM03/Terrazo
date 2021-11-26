@@ -26,6 +26,13 @@
                    
                     <div class="row mb-3 justify-content-center">
                         <div class="col-12 col-md-3">
+                                <label for="name" class="form-label">Store number</label>
+                                <input type="text" class="form-control" placeholder="Type store code" name="store_number" value="{{$customer->store_number}}" id="store_number" tabindex="1" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-12 col-md-5">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" placeholder="Type customer's name" name="name" value="{{$customer->name}}" id="name" tabindex="1" required>
                         </div>
@@ -52,7 +59,7 @@
                         </div>
                     </div>
 
-                    <a href="../customers" class="btn btn-info mr-3">Cancel</a>
+                    <a href="../../customers" class="btn btn-info mr-3">Cancel</a>
                     <button type="submit" class="btn btn-success" tabindex="4">Update</button>
                 </form>
                

@@ -23,7 +23,14 @@
                 <form action="created" method="POST" class="mt-4">
                     @csrf
                     <div class="row mb-3 justify-content-center">
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-5">
+                                <label for="name" class="form-label">Store number</label>
+                                <input type="text" class="form-control" placeholder="Type store code" name="store_number" id="store_number" tabindex="1" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-12 col-md-5">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" placeholder="Type customer's name" name="name" id="name" tabindex="1" required>
                         </div>

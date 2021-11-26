@@ -41,6 +41,7 @@ class CustomerController extends Controller
     {
         //
         $customers = new Customer();
+        $customers->store_number = $request->get('store_number');
         $customers->name = $request->get('name');
         $customers->address = $request->get('address');
         $customers->number = $request->get('number');
@@ -88,6 +89,7 @@ class CustomerController extends Controller
         //
         $customer =  Customer::find($id);
         
+        $customer->store_number = $request->get('store_number');
         $customer->name = $request->get('name');
         $customer->address = $request->get('address');
         $customer->number = $request->get('number');

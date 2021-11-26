@@ -85,7 +85,7 @@ class DatatableController extends Controller
     }
 
     public function customer(){ 
-        $customers = Customer::select(['id', 'name', 'address', 'number', 'email']);//->get();
+        $customers = Customer::select(['id', 'store_number', 'name', 'address', 'number', 'email']);//->get();
        // return $labor;
        return datatables()->of($customers)
        ->addColumn('actions', 

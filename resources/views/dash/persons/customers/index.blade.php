@@ -29,6 +29,7 @@
                  <table id="customers_table" class="table table-bordered table-hover responsive">
                 <thead class="thead-dark">
                     <th>#</th>
+                    <th>Store number</th>
                     <th>Name</th>
                     <th>Address</th>
                     <th>Number</th>
@@ -116,6 +117,7 @@
  "ajax": "{{route('datatable.customer')}}",
  "columns": [
      {data: 'id'},
+     {data: 'store_number'},
      {data: 'name'},
      {data: 'address'},
      {data: 'number'},

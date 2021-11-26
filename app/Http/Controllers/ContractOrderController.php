@@ -12,10 +12,19 @@ class ContractOrderController extends Controller
      *
      * @return \Illuminate\Http\Response 
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dash.orders.contract_order.index');
+        
+        $name = auth()->user()->name; 
+        
+        $request->session()->put('usuario', $name);
+        $session = $request->session()->all();
+
+        //return $session;
+        return view('dash.orders.contract_order.index')->with('sesion', $session);
     }
+
+
 
     //Funcion para el select2
     public function getCustomers(Request $request){
@@ -24,12 +33,12 @@ class ContractOrderController extends Controller
 
         if($search == ''){
             $customers = Customer::orderby('name', 'ASC')
-            ->select('id', 'name')
+            ->select('id', 'store_number', 'name')
             ->limit(10)
             ->get();
         }else{
             $customers = Customer::orderby('name', 'ASC')
-            ->select('id', 'name')
+            ->select('id', 'store_number', 'name')
             ->where('name', 'like', '%' . $search . '%')
             ->limit(5)
             ->get();
@@ -42,6 +51,7 @@ class ContractOrderController extends Controller
             $response[] = array(
                 'id' => $customer->id,
                 'text' => $customer->name,
+                'code_store' => $customer->store_number,
             ); 
         }
 
