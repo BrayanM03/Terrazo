@@ -255,12 +255,12 @@ function recogerInfomacion() {
                             </div>
 
                             <div class="row justify-content-center align-items-center">
-                            <div class="col-12 col-md-10" style="border: 1px solid green">
+                            <div class="col-12 col-md-10">
 
                             <div class="row justify-content-center p-3">
                                 <div class="col-12 col-md-3"> 
                                     <p>Category</p>
-                                    <select input class="form-control" id="category" onchange="ChangeCategory();">
+                                    <select input class="form-control" id="category" name="category" onchange="ChangeCategory();">
                                         <option value="null">Select category</option>
                                         <option value="material">Materials</option>
                                         <option value="equiptment">Equiptments</option>
@@ -269,24 +269,142 @@ function recogerInfomacion() {
                                     </select>      
                                 </div>
 
-                                <div class="col-12 col-md-6"> 
+                                <div class="col-12 col-md-5"> 
                                     <p>Concept</p>
-                                    <select input class="form-control" id="concept_select" disabled>
+                                    <select input class="form-control" id="concept_select" name="concept_select" disabled>
                                       
                                     </select>      
                                 </div>
 
                                 <div class="col-12 col-md-1">
+                                    <p>Price</p> 
+                                    <input class="form-control" id="price" name="price" placeholder="0.00">    
+                                </div>
+
+                                <div class="col-12 col-md-1">
                                     <p>Qty</p> 
-                                    <input class="form-control" placeholder="0">    
+                                    <input class="form-control" id="qty" name="qty" placeholder="0">    
                                 </div>
 
                                 <div class="col-12 col-md-2" style="margin-top:39px;"> 
-                                    <div input class="btn btn-md btn-info" onclick="AddConcept()">Add</div>      
+                                    <div unit="" id="btn-add" class="btn btn-md btn-info" onclick="AddConcept()">Add</div>      
                                 </div>
 
                             </div>
                             </div>
+                            </div>
+
+                            <div class="row mt-5 m-3">
+                                <div class="col-12 col-md-12">
+
+                                        <div id="card-materials" class="card collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Materials table</h3>
+                                                <div class="card-tools">
+                                                <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="card-body">
+                                                <table id="materials_table" class="table table-bordered table-hover responsive">
+                                                    <thead class="thead-dark">
+                                                        <th>#</th>
+                                                        <th>Qty</th>
+                                                        <th>Unity</th>
+                                                        <th>Materials</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Actions</th>
+                                                    </thead>
+                                                    
+                                                </table>
+                                            </div>
+                                        </div>           
+                                </div>
+
+
+                                <div class="col-12 col-md-12">
+
+                                    <div class="card collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Equiptments table</h3>
+                                                <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="card-body">
+                                               
+                                                <table id="equiptments_table" class="table table-warning table-bordered table-hover responsive">
+                                                    <thead>
+                                                        <th>#</th>
+                                                        <th>Qty</th>
+                                                        <th>Unity</th>
+                                                        <th>Equiptments</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Actions</th>
+                                                    </thead>
+                                                
+                                                </table>
+                                                
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row m-3">
+                                <div class="col-12 col-md-12">
+
+                                    <div class="card collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Labors table</h3>
+                                                <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="card-body">
+                                                <table id="labors_table" class="table table-primary table-bordered table-hover responsive">
+                                                    <thead>
+                                                        <th>#</th>
+                                                        <th>Qty</th>
+                                                        <th>Unity</th>
+                                                        <th>Labors</th>
+                                                        <th>Price per hour</th>
+                                                        <th>Actions</th>
+                                                    </thead>
+                                                
+                                                </table>
+                                            </div>
+                                            </div>      
+                                </div>
+
+
+                                <div class="col-12 col-md-12">
+
+                                    <div class="card collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Other expenses table</h3>
+                                                <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="card-body">
+                                                <table id="other_table" class="table table-danger table-bordered table-hover responsive">
+                                                    <thead>
+                                                        <th>#</th>
+                                                        <th>Qty</th>
+                                                        <th>Unity</th>
+                                                        <th>Other expenses</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Actions</th>
+                                                    </thead>
+                                                
+                                                </table>
+                                            </div>
+                                        </div>          
+                                </div>
                             </div>
 
                          </div>`);
@@ -357,7 +475,10 @@ function recogerInfomacion() {
             templateResult: formatRepos,   
             templateSelection: formatRepoSelections
 
-        });
+        }).on('select2:selecting', function(event){
+  
+  $('#concept_select').find('option').remove();
+});
 
            
 
@@ -377,8 +498,9 @@ function recogerInfomacion() {
             }
 
             function formatRepoSelections (repo) {
-           // $("#store_number").val(repo.code_store)  
-           console.log(repo.description);
+           $("#price").val(repo.price); 
+            $("#btn-add").attr("unit", repo.unit);
+           
             return repo.description;
             
             }
@@ -388,12 +510,43 @@ function recogerInfomacion() {
 
  function AddConcept() {
 
-                /* category = $("#category").val();
+                 category = $("#category").val();
+                 description = $("#concept_select").val();
+                 qty = $("#qty").val();
+                 price = $("#price").val();  
+                 unit = $("#btn-add").attr("unit");  
+
+                 var formData = new FormData();
+                 formData.append("category", category);
+                 formData.append("unit", unit);
+                 formData.append("description", description);
+                 formData.append("qty", qty);
+                 formData.append("price", price);
+                 formData.append("_token", CSRF_TOKEN);
+                 
+
+                 validar_collapse_card = $("#card-materials").hasClass("collapsed-card"); 
+                 console.log(validar_collapse_card);
+                 validar_collapse_card == true ? $("#plus-btn-"+category).click() : console.log("Card abierto");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/insertdata",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+                 
+                /* $(".control-sidebar").append("concepto: " + description);
                  console.log(category); */
              }
 
 
- /*  $("#materials_table").DataTable({
+/*  $("#materials_table").DataTable({
  
  processing: true,
  serverSide: true,
@@ -406,13 +559,12 @@ function recogerInfomacion() {
      {data: 'description'},
      {data: 'unit_price'},
      {data: 'actions'},
-     /* {data: null, render: function(){
+     {data: null, render: function(){
          return '<a class="btn btn-warning mr-2"><i class="fas fa-edit"></i></a>'+
                              '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>'
-     }}, */
-
-/*  ]
-  }); */ 
+     }}, 
+  ]
+  });  */
 
 
 /*   function Llamar(e, id){

@@ -62,3 +62,6 @@ Route::post('/getMaterials', [ContractOrderController::class, 'getMaterials'])->
 Route::post('/getEquiptments', [ContractOrderController::class, 'getEquiptments'])->name('getEquiptments');
 Route::post('/getLabors', [ContractOrderController::class, 'getLabors'])->name('getLabors');
 Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpenses'])->name('getOtherExpenses');
+
+//Rutas para agregar datos a las tablas tmp
+Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');

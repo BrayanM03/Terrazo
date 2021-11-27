@@ -8,6 +8,7 @@ use App\Models\Material;
 use App\Models\Equiptment;
 use App\Models\Labor;
 use App\Models\OtherExpensis;
+use Illuminate\Support\Facades\Schema;
 
 class ContractOrderController extends Controller
 {
@@ -193,6 +194,8 @@ class ContractOrderController extends Controller
 
         return response()->json($response);
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -211,7 +214,17 @@ class ContractOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = auth()->user()->id; 
+        if (Schema::hasTable('tmp_materials_table_' . $user_id))
+        {
+            $category = $request->qty;
+            $arreglo = array("price" => $category);
+            return response()->json($arreglo);
+        }else{
+            $arreglo = array("mnsj" => "No hay nada");
+            return response()->json($arreglo);
+        }
+        
     }
 
     /**
