@@ -10,6 +10,9 @@ use App\Models\OtherExpensis;
 use App\Models\Customer;
 use yajra\Datatables\Services\DataTables;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class DatatableController extends Controller
 {
@@ -43,7 +46,26 @@ class DatatableController extends Controller
        '<input type="hidden" name="_method" value="DELETE">' .
        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
        '</form>')
-       ->rawColumns(['actions'])
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getMaterialTemp(){
+
+        $user_id = auth()->user()->id; 
+        $tab = 'tmp_material_table_' . $user_id; 
+        $material = DB::table($tab)->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions', 
+       '<form action="{{ route ("materials.destroy", $id )}}" id="{{$id}}" class="eliminar_material" method="POST" style="display:flex;">'.
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
+       '</form>')
+       ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */
       
@@ -51,7 +73,7 @@ class DatatableController extends Controller
 
 
     public function equiptment(){ 
-        $equiptment = Equiptment::select(['id', 'unit', 'description', 'unit_price']);//->get();
+        $equiptment = Equiptment::select(['id', 'unit', 'code', 'description', 'unit_price', 'amount']);//->get();
        // return $labor;
        return datatables()->of($equiptment)
        ->addColumn('actions', 

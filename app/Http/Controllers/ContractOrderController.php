@@ -8,7 +8,10 @@ use App\Models\Material;
 use App\Models\Equiptment;
 use App\Models\Labor;
 use App\Models\OtherExpensis;
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 
 class ContractOrderController extends Controller
 {
@@ -215,17 +218,83 @@ class ContractOrderController extends Controller
     public function store(Request $request)
     {
         $user_id = auth()->user()->id; 
-        if (Schema::hasTable('tmp_materials_table_' . $user_id))
+        $category = $request->category; 
+
+        $tab = 'tmp_'. $category .'_table_' . $user_id;
+         
+        $code = $request->code;
+        $qty = $request->qty; 
+        $unit = $request->unit;  
+        $description = $request->description;  
+        $price = $request->price; 
+        $amount = $qty * $price; 
+
+        if (Schema::hasTable($tab))
         {
-            $category = $request->qty;
-            $arreglo = array("price" => $category);
+            $total = DB::table($tab)->where('code', $code)->count();
+    
+            if($total == 0){
+
+             DB::table($tab)->insert([
+                'qty' => $qty,
+                'unit' => $unit,
+                'code' => $code,
+                'description' => $description,
+                'price' => $price,
+                'amount' =>$amount
+            ]);
+
+            }else{
+
+                $row = DB::table($tab)->where('code', $code)->first();
+                $code_founded = $row->code;
+                $qty_founded = $row->qty;
+                $amount_founded = $row->amount;
+                $total_qty = $qty_founded + $qty;
+
+                DB::table($tab)
+                    ->where('id', $code_founded)
+                    ->update(['qty' => $total_qty, 'amount' => $total_qty]);
+
+                }
+
+            
+
+            $arreglo = array("msj" => $total_qty); //"Se insertaron los datos"
             return response()->json($arreglo);
+
         }else{
-            $arreglo = array("mnsj" => "No hay nada");
+            
+            Schema::create($tab, function (Blueprint $table) {
+                $table->id();
+                $table->string('qty');
+                $table->string('unit');
+                $table->string('code');
+                $table->string('description');
+                $table->double('price', 11, 2);
+                $table->double('amount', 11, 2);
+                
+                $table->timestamps();
+            });
+
+           
+            $this_amount = $qty * $price;
+            DB::table($tab)->insert([
+                'qty' => $qty,
+                'unit' => $unit,
+                'code' => $code,
+                'description' => $description,
+                'price' => $price,
+                'amount' => $this_amount,
+            ]);
+
+            $arreglo = array("msj" => "Se creo una tabla nueva y se insertaron datos dentro de esta.");
             return response()->json($arreglo);
         }
         
     }
+
+    
 
     /**
      * Display the specified resource.

@@ -65,3 +65,7 @@ Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpen
 
 //Rutas para agregar datos a las tablas tmp
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
+
+
+Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');
+

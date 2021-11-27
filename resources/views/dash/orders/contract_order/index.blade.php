@@ -287,38 +287,45 @@ function recogerInfomacion() {
                                 </div>
 
                                 <div class="col-12 col-md-2" style="margin-top:39px;"> 
-                                    <div unit="" id="btn-add" class="btn btn-md btn-info" onclick="AddConcept()">Add</div>      
+                                    <div unit="" id_reg="" id="btn-add" class="btn btn-md btn-info" onclick="AddConcept()">Add</div>      
                                 </div>
 
                             </div>
                             </div>
                             </div>
 
-                            <div class="row mt-5 m-3">
+                            <div class="row mt-5 m-3 justify-content-center">
                                 <div class="col-12 col-md-12">
 
-                                        <div id="card-materials" class="card collapsed-card">
+                                        <div id="card-materials" class="card">
                                             <div class="card-header">
                                                 <h3 class="card-title">Materials table</h3>
                                                 <div class="card-tools">
-                                                <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
                                             </div>
                                 
                                             <div class="card-body">
-                                                <table id="materials_table" class="table table-bordered table-hover responsive">
+                                               <div class="contenedor">
+                                                <table id="materials_table" class="table table-bordered table-hover">
                                                     <thead class="thead-dark">
+                                                        <tr>
                                                         <th>#</th>
                                                         <th>Qty</th>
-                                                        <th>Unity</th>
+                                                        <th>Unit</th>
+                                                        <th>Code</th>
                                                         <th>Materials</th>
                                                         <th>Unit Price</th>
+                                                        <th>Amount</th>
                                                         <th>Actions</th>
+                                                        </tr>
                                                     </thead>
                                                     
-                                                </table>
+                                                </table> 
+                                               </div>
                                             </div>
-                                        </div>           
+                                        </div> 
+                                                 
                                 </div>
 
 
@@ -409,6 +416,28 @@ function recogerInfomacion() {
 
                          </div>`);
 
+                        //Definiendo datatables
+                         tab = $("#materials_table").DataTable({
+ 
+                            processing: true,
+                            serverSide: true,
+                            "scrollY": "250px",
+                            "responsive" : true,
+                            "ajax": "{{route('datatable.material_tmp')}}",
+                            "columns": [
+                                {data: 'id'},
+                                {data: 'qty'},
+                                {data: 'unit'},
+                                {data: 'code'},
+                                {data: 'description'},
+                                {data: 'price'},
+                                {data: 'amount'},
+                                {data: 'actions'},
+                               
+                            ]
+                            });
+
+
                          
 
         }
@@ -498,8 +527,9 @@ function recogerInfomacion() {
             }
 
             function formatRepoSelections (repo) {
-           $("#price").val(repo.price); 
+            $("#price").val(repo.price); 
             $("#btn-add").attr("unit", repo.unit);
+            $("#btn-add").attr("id_reg", repo.id);
            
             return repo.description;
             
@@ -515,8 +545,10 @@ function recogerInfomacion() {
                  qty = $("#qty").val();
                  price = $("#price").val();  
                  unit = $("#btn-add").attr("unit");  
+                 code = $("#btn-add").attr("id_reg");
 
                  var formData = new FormData();
+                 formData.append("code", code);
                  formData.append("category", category);
                  formData.append("unit", unit);
                  formData.append("description", description);
@@ -527,6 +559,7 @@ function recogerInfomacion() {
 
                  validar_collapse_card = $("#card-materials").hasClass("collapsed-card"); 
                  console.log(validar_collapse_card);
+                 
                  validar_collapse_card == true ? $("#plus-btn-"+category).click() : console.log("Card abierto");
 
                 $.ajax({
@@ -537,7 +570,7 @@ function recogerInfomacion() {
                     data: formData,
                     dataType: "JSON",
                     success: function (response) {
-                        console.log(response);
+                        tab.ajax.reload(false, null);
                     }
                 });
                  
@@ -546,25 +579,7 @@ function recogerInfomacion() {
              }
 
 
-/*  $("#materials_table").DataTable({
  
- processing: true,
- serverSide: true,
- "scrollY": "400px",
- "responsive" : true,
- "ajax": "{{route('datatable.material')}}",
- "columns": [
-     {data: 'id'},
-     {data: 'unit'},
-     {data: 'description'},
-     {data: 'unit_price'},
-     {data: 'actions'},
-     {data: null, render: function(){
-         return '<a class="btn btn-warning mr-2"><i class="fas fa-edit"></i></a>'+
-                             '<button class="btn btn-danger"><i class="fas fa-trash"></i></button>'
-     }}, 
-  ]
-  });  */
 
 
 /*   function Llamar(e, id){
