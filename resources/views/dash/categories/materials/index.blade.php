@@ -113,6 +113,8 @@
  "scrollY": "400px",
  "responsive" : true,
  "ajax": "{{route('datatable.material')}}",
+ "language": {
+            processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
  "columns": [
      {data: 'id'},
      {data: 'unit'},

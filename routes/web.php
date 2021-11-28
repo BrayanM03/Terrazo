@@ -63,8 +63,9 @@ Route::post('/getEquiptments', [ContractOrderController::class, 'getEquiptments'
 Route::post('/getLabors', [ContractOrderController::class, 'getLabors'])->name('getLabors');
 Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpenses'])->name('getOtherExpenses');
 
-//Rutas para agregar datos a las tablas tmp
+//Rutas para los datos de las tablas tmp
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
+Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('deletedata');
 
 
 Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');

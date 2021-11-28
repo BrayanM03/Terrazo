@@ -220,12 +220,39 @@ class ContractOrderController extends Controller
         $user_id = auth()->user()->id; 
         $category = $request->category; 
 
-        $tab = 'tmp_'. $category .'_table_' . $user_id;
-         
         $code = $request->code;
         $qty = $request->qty; 
         $unit = $request->unit;  
-        $description = $request->description;  
+        
+        switch ($category) {
+            case "material":
+                $row_description = DB::table("materials")->where('id', $code)->first();
+                $description = $row_description->description;
+                break;
+
+            case "equiptment":
+                $row_description = DB::table("equiptments")->where('id', $code)->first();
+                $description = $row_description->description;
+                break;
+
+            case "labor":
+                $row_description = DB::table("labors")->where('id', $code)->first();
+                $description = $row_description->description;
+                break;
+
+            case "other":
+                $row_description = DB::table("other_expenses")->where('id', $code)->first();
+                $description = $row_description->description;
+                break;            
+        
+            default:
+                break;
+        }
+
+        $tab = 'tmp_'. $category .'_table_' . $user_id;
+         
+         
+        
         $price = $request->price; 
         $amount = $qty * $price; 
 
@@ -250,17 +277,18 @@ class ContractOrderController extends Controller
                 $code_founded = $row->code;
                 $qty_founded = $row->qty;
                 $amount_founded = $row->amount;
+                $total_amount = $amount_founded + $amount;
                 $total_qty = $qty_founded + $qty;
 
                 DB::table($tab)
-                    ->where('id', $code_founded)
-                    ->update(['qty' => $total_qty, 'amount' => $total_qty]);
+                    ->where('code', $code_founded)
+                    ->update(['qty' => $total_qty, 'amount' => "$total_amount"]);
 
                 }
 
             
 
-            $arreglo = array("msj" => $total_qty); //"Se insertaron los datos"
+            $arreglo = array("msj" =>  "Exito"); //"Se insertaron los datos"
             return response()->json($arreglo);
 
         }else{
@@ -336,8 +364,19 @@ class ContractOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $category = $request->category;
+        $id = $request->id;
+        $user_id = auth()->user()->id; 
+
+        $tab = 'tmp_'. $category .'_table_' . $user_id;
+      
+
+        DB::table($tab)->where('id', $id)->delete();
+        $arreglo = array("msj" => "Borrado correctamente.");
+        return response()->json($arreglo);
+
+
     }
 }

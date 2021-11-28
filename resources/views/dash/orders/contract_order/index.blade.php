@@ -298,7 +298,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-12">
 
                                         <div id="card-materials" class="card">
-                                            <div class="card-header">
+                                            <div class="card-header" style="background-color: #000000; color: white;">
                                                 <h3 class="card-title">Materials table</h3>
                                                 <div class="card-tools">
                                                 <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -307,8 +307,8 @@ function recogerInfomacion() {
                                 
                                             <div class="card-body">
                                                <div class="contenedor">
-                                                <table id="materials_table" class="table table-bordered table-hover">
-                                                    <thead class="thead-dark">
+                                                <table id="materials_table" class="table table-bordered table-success table-hover">
+                                                    <thead>
                                                         <tr>
                                                         <th>#</th>
                                                         <th>Qty</th>
@@ -434,7 +434,11 @@ function recogerInfomacion() {
                                 {data: 'amount'},
                                 {data: 'actions'},
                                
-                            ]
+                            ],
+                            "processing": true,
+                            "language": {
+                                  processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
+ 
                             });
 
 
@@ -582,13 +586,13 @@ function recogerInfomacion() {
  
 
 
-/*   function Llamar(e, id){
+  function Llamar(e, id, id_category){
      e.preventDefault();
      form = $("#"+id);
      Swal.fire({
          
-         title: 'Are you sure to remove this labor?',
-         text: "You won't be able to revert this! id: " + id,
+         title: 'Are you sure to remove this concept?',
+         text: "You won't be able to revert this!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',
@@ -596,12 +600,59 @@ function recogerInfomacion() {
          confirmButtonText: 'Yes, delete it!'
          }).then((result) => {
          if (result.isConfirmed) {
+             
+           
+            switch (id_category) {
+                case 1:
+                var category = "material";   
+                    break;
+                case 2:
+                var category = "equiptment";   
+                    break;
+                case 3:    
+                var category = "labor";   
+                    break;
+                case 4:
+                var category = "other";   
+                    break;
+                default:
+                    break;
+            }
+            var formData = new FormData();
+                formData.append("id", id);
+                formData.append("category", category);
+                formData.append("_token", CSRF_TOKEN);
+
+            $.ajax({
+                    type: "POST",
+                    url: "/deletedata",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    dataType: "JSON",
+                    success: function (response) {
+                        tab.ajax.reload(false, null);
+                        Swal.fire({
          
-         form.submit();
+                            title: 'Deleted!',
+                            text: "Registry deleted successfully.",
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok!'
+                            })
+                        
+                    }
+                });
+         
          }
          })
   }
- */
+
+
+
+
 
 
 

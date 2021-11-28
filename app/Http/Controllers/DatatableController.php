@@ -59,12 +59,10 @@ class DatatableController extends Controller
         $material = DB::table($tab)->get();
  
        return datatables()->of($material)
-       ->addColumn('actions', 
-       '<form action="{{ route ("materials.destroy", $id )}}" id="{{$id}}" class="eliminar_material" method="POST" style="display:flex;">'.
+       ->addColumn('actions',
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
-       '</form>')
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
        ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */
@@ -73,7 +71,7 @@ class DatatableController extends Controller
 
 
     public function equiptment(){ 
-        $equiptment = Equiptment::select(['id', 'unit', 'code', 'description', 'unit_price', 'amount']);//->get();
+        $equiptment = Equiptment::select(['id', 'unit', 'description', 'unit_price']);//->get();
        // return $labor;
        return datatables()->of($equiptment)
        ->addColumn('actions', 
