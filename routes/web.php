@@ -69,4 +69,7 @@ Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('d
 
 
 Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');
+Route::get('datatable/equiptment_tmp', 'App\Http\Controllers\DatatableController@getEquiptmentTemp')->name('datatable.equiptment_tmp');
+Route::get('datatable/labor_tmp', 'App\Http\Controllers\DatatableController@getLaborTemp')->name('datatable.labor_tmp');
+Route::get('datatable/other_tmp', 'App\Http\Controllers\DatatableController@getOtherTemp')->name('datatable.other_tmp');
 

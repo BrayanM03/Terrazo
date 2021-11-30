@@ -34,6 +34,23 @@ class DatatableController extends Controller
       
     }
 
+    public function getLaborTemp(){
+
+        $user_id = auth()->user()->id; 
+        $tab = 'tmp_labor_table_' . $user_id; 
+        $material = DB::table($tab)->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
 
     public function material(){ 
         $material = Material::select(['id', 'unit', 'description', 'unit_price']);//->get();
@@ -87,6 +104,23 @@ class DatatableController extends Controller
       
     }
 
+    public function getEquiptmentTemp(){
+
+        $user_id = auth()->user()->id; 
+        $tab = 'tmp_equiptment_table_' . $user_id; 
+        $material = DB::table($tab)->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
     public function other_expenses(){ 
         $other_expenses = OtherExpensis::select(['id', 'unit', 'description', 'unit_price']);//->get();
        // return $labor;
@@ -99,6 +133,23 @@ class DatatableController extends Controller
        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
        '</form>')
        ->rawColumns(['actions'])
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+    
+    public function getOtherTemp(){
+
+        $user_id = auth()->user()->id; 
+        $tab = 'tmp_other_table_' . $user_id; 
+        $material = DB::table($tab)->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */
       

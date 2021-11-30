@@ -298,7 +298,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-12">
 
                                         <div id="card-materials" class="card">
-                                            <div class="card-header" style="background-color: #000000; color: white;">
+                                            <div class="card-header" style="background-color: #009846; color: white;">
                                                 <h3 class="card-title">Materials table</h3>
                                                 <div class="card-tools">
                                                 <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -307,8 +307,8 @@ function recogerInfomacion() {
                                 
                                             <div class="card-body">
                                                <div class="contenedor">
-                                                <table id="materials_table" class="table table-bordered table-success table-hover">
-                                                    <thead>
+                                                <table id="materials_table" class="table table-bordered table-hover">
+                                                    <thead class="table-success">
                                                         <tr>
                                                         <th>#</th>
                                                         <th>Qty</th>
@@ -332,7 +332,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-12">
 
                                     <div class="card collapsed-card">
-                                            <div class="card-header">
+                                            <div class="card-header" style="background-color: #FFE900; color: black;">
                                                 <h3 class="card-title">Equiptments table</h3>
                                                 <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
@@ -363,7 +363,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-12">
 
                                     <div class="card collapsed-card">
-                                            <div class="card-header">
+                                            <div class="card-header" style="background-color: #0070B8; color: white">
                                                 <h3 class="card-title">Labors table</h3>
                                                 <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
@@ -390,7 +390,7 @@ function recogerInfomacion() {
                                 <div class="col-12 col-md-12">
 
                                     <div class="card collapsed-card">
-                                            <div class="card-header">
+                                            <div class="card-header" style="background-color: #E60026; color: white">
                                                 <h3 class="card-title">Other expenses table</h3>
                                                 <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
@@ -424,6 +424,78 @@ function recogerInfomacion() {
                             "scrollY": "250px",
                             "responsive" : true,
                             "ajax": "{{route('datatable.material_tmp')}}",
+                            "columns": [
+                                {data: 'id'},
+                                {data: 'qty'},
+                                {data: 'unit'},
+                                {data: 'code'},
+                                {data: 'description'},
+                                {data: 'price'},
+                                {data: 'amount'},
+                                {data: 'actions'},
+                               
+                            ],
+                            "processing": true,
+                            "language": {
+                                  processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
+ 
+                            });
+
+                             tab2 = $("equiptments_table").DataTable({
+ 
+                            processing: true,
+                            serverSide: true,
+                            "scrollY": "250px",
+                            "responsive" : true,
+                            "ajax": "{{route('datatable.equiptment_tmp')}}",
+                            "columns": [
+                                {data: 'id'},
+                                {data: 'qty'},
+                                {data: 'unit'},
+                                {data: 'code'},
+                                {data: 'description'},
+                                {data: 'price'},
+                                {data: 'amount'},
+                                {data: 'actions'},
+                               
+                            ],
+                            "processing": true,
+                            "language": {
+                                  processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
+ 
+                            });
+
+                             tab = $("#labors_table").DataTable({
+ 
+                            processing: true,
+                            serverSide: true,
+                            "scrollY": "250px",
+                            "responsive" : true,
+                            "ajax": "{{route('datatable.labor_tmp')}}",
+                            "columns": [
+                                {data: 'id'},
+                                {data: 'qty'},
+                                {data: 'unit'},
+                                {data: 'code'},
+                                {data: 'description'},
+                                {data: 'price'},
+                                {data: 'amount'},
+                                {data: 'actions'},
+                               
+                            ],
+                            "processing": true,
+                            "language": {
+                                  processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
+ 
+                            });
+
+                             tab = $("#other_table").DataTable({
+ 
+                            processing: true,
+                            serverSide: true,
+                            "scrollY": "250px",
+                            "responsive" : true,
+                            "ajax": "{{route('datatable.other_tmp')}}",
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
