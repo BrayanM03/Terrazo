@@ -44,7 +44,7 @@ class DatatableController extends Controller
        ->addColumn('actions',
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},3);"><i class="fas fa-trash"></i></button>')
        ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */
@@ -114,7 +114,7 @@ class DatatableController extends Controller
        ->addColumn('actions',
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},2);"><i class="fas fa-trash"></i></button>')
        ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */
@@ -148,7 +148,7 @@ class DatatableController extends Controller
        ->addColumn('actions',
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},4);"><i class="fas fa-trash"></i></button>')
        ->rawColumns(['actions']) 
        ->toJson();
        /* return DataTables::of($labor)->make(); */

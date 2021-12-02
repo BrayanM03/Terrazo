@@ -239,7 +239,23 @@ function recogerInfomacion() {
         //Si validacion OK entonces 
         if(flag == 0){
 
-                $("#primer_form").empty();
+                $("#primer_form").empty(); //Borramos el primer formulario
+
+                //Hacer una peticion para comprobar la existencia de las tablas
+                formDatas = new FormData();
+                formDatas.append("_token", CSRF_TOKEN);
+                $.ajax({
+                    type: "POST",
+                    url: "/checktables",
+                    processData: false,
+                    contentType: false,
+                    data: formDatas,
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response.msj);
+                    }
+                });
+
 
                 $("#primer_form").append(`
                         <div class="contenedor animate__animated animate__headShake">
@@ -271,9 +287,10 @@ function recogerInfomacion() {
 
                                 <div class="col-12 col-md-5"> 
                                     <p>Concept</p>
-                                    <select input class="form-control" id="concept_select" name="concept_select" disabled>
+                                    <select class="form-control" id="concept_select" name="concept_select" disabled>
                                       
-                                    </select>      
+                                    </select> 
+                                    <div class="invalid-feedback">Choose a option</div>     
                                 </div>
 
                                 <div class="col-12 col-md-1">
@@ -283,7 +300,8 @@ function recogerInfomacion() {
 
                                 <div class="col-12 col-md-1">
                                     <p>Qty</p> 
-                                    <input class="form-control" id="qty" name="qty" placeholder="0">    
+                                    <input class="form-control" type="number" id="qty" name="qty" placeholder="0">  
+                                    <div class="invalid-feedback">Set qty</div>   
                                 </div>
 
                                 <div class="col-12 col-md-2" style="margin-top:39px;"> 
@@ -300,6 +318,7 @@ function recogerInfomacion() {
                                         <div id="card-materials" class="card">
                                             <div class="card-header" style="background-color: #009846; color: white;">
                                                 <h3 class="card-title">Materials table</h3>
+                                                Total: $ <div class="badge badge-warning badge-pill" width="100" id="total_amount_material">0.00</div>
                                                 <div class="card-tools">
                                                 <button type="button" id="plus-btn-material" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
@@ -331,23 +350,25 @@ function recogerInfomacion() {
 
                                 <div class="col-12 col-md-12">
 
-                                    <div class="card collapsed-card">
+                                    <div class="card">
                                             <div class="card-header" style="background-color: #FFE900; color: black;">
                                                 <h3 class="card-title">Equiptments table</h3>
                                                 <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
                                             </div>
                                 
                                             <div class="card-body">
                                                
-                                                <table id="equiptments_table" class="table table-warning table-bordered table-hover responsive">
-                                                    <thead>
+                                                <table id="equiptments_table" class="table table-bordered table-hover responsive">
+                                                    <thead class="table-warning">
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
+                                                        <th>Code</th>
                                                         <th>Equiptments</th>
                                                         <th>Unit Price</th>
+                                                        <th>Amount</th>
                                                         <th>Actions</th>
                                                     </thead>
                                                 
@@ -362,22 +383,24 @@ function recogerInfomacion() {
                             <div class="row m-3">
                                 <div class="col-12 col-md-12">
 
-                                    <div class="card collapsed-card">
+                                    <div class="card">
                                             <div class="card-header" style="background-color: #0070B8; color: white">
                                                 <h3 class="card-title">Labors table</h3>
-                                                <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                <div class="card-tools">    
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
                                             </div>
                                 
                                             <div class="card-body">
-                                                <table id="labors_table" class="table table-primary table-bordered table-hover responsive">
-                                                    <thead>
+                                                <table id="labors_table" class="table table-bordered table-hover responsive">
+                                                    <thead class="table-primary">
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
+                                                        <th>Code</th>
                                                         <th>Labors</th>
                                                         <th>Price per hour</th>
+                                                        <th>Amount</th>
                                                         <th>Actions</th>
                                                     </thead>
                                                 
@@ -389,22 +412,24 @@ function recogerInfomacion() {
 
                                 <div class="col-12 col-md-12">
 
-                                    <div class="card collapsed-card">
+                                    <div class="card">
                                             <div class="card-header" style="background-color: #E60026; color: white">
                                                 <h3 class="card-title">Other expenses table</h3>
                                                 <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
                                             </div>
                                 
                                             <div class="card-body">
-                                                <table id="other_table" class="table table-danger table-bordered table-hover responsive">
-                                                    <thead>
+                                                <table id="other_table" class="table table-bordered table-hover responsive">
+                                                    <thead class="table-danger">
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
+                                                        <th>Code</th>
                                                         <th>Other expenses</th>
                                                         <th>Unit Price</th>
+                                                        <th>Amount</th>
                                                         <th>Actions</th>
                                                     </thead>
                                                 
@@ -412,12 +437,18 @@ function recogerInfomacion() {
                                             </div>
                                         </div>          
                                 </div>
+
+                                
+                                    <div class="col-12 col-md-12 mt-4">
+                                        <div class="btn btn-success">Registrar</div>
+                                    </div>
+                                
                             </div>
 
                          </div>`);
 
                         //Definiendo datatables
-                         tab = $("#materials_table").DataTable({
+                         tab1 = $("#materials_table").DataTable({
  
                             processing: true,
                             serverSide: true,
@@ -441,7 +472,7 @@ function recogerInfomacion() {
  
                             });
 
-                             tab2 = $("equiptments_table").DataTable({
+                            tab2 = $("#equiptments_table").DataTable({
  
                             processing: true,
                             serverSide: true,
@@ -465,7 +496,7 @@ function recogerInfomacion() {
  
                             });
 
-                             tab = $("#labors_table").DataTable({
+                             tab3 = $("#labors_table").DataTable({
  
                             processing: true,
                             serverSide: true,
@@ -489,7 +520,7 @@ function recogerInfomacion() {
  
                             });
 
-                             tab = $("#other_table").DataTable({
+                             tab4 = $("#other_table").DataTable({
  
                             processing: true,
                             serverSide: true,
@@ -513,6 +544,16 @@ function recogerInfomacion() {
  
                             });
 
+                            $("#qty").keyup(function(){ 
+                                    thisval = $("#qty").val();
+                                    console.log(thisval);
+                                    if(thisval == null || thisval == '' || thisval.length == 0 || thisval == 0){
+
+                                    }else{
+                                        $("#qty").removeClass("is-invalid");
+                                    }
+                                })
+
 
                          
 
@@ -520,13 +561,25 @@ function recogerInfomacion() {
     
  }
 
+ 
+
  function ChangeCategory(){
         category = $("#category").val();
       
         if(category == "null"){
             $("#concept_select").prop("disabled",true);
+            $("#btn-add").attr("id_reg", null);
+            $("#concept_select").val(null);
         }else{
             $("#concept_select").prop("disabled",false);
+
+            compr = $("#concept_select").hasClass("is-invalid"); //Comprobamos la clase del description
+                    console.log(compr);
+                    if(compr == true){
+                        $("#concept_select").removeClass("is-invalid");
+                    }else{
+                        //$("#concept_select").addClass("is-invalid");
+                    }
 
             switch (category) {
                 case "material":
@@ -606,6 +659,14 @@ function recogerInfomacion() {
             $("#price").val(repo.price); 
             $("#btn-add").attr("unit", repo.unit);
             $("#btn-add").attr("id_reg", repo.id);
+
+            compr = $("#concept_select").hasClass("is-invalid"); //Comprobamos la clase del description
+                    console.log(compr);
+                    if(compr == true){
+                        $("#concept_select").removeClass("is-invalid");
+                    }else{
+                        //$("#concept_select").addClass("is-invalid");
+                    }
            
             return repo.description;
             
@@ -622,6 +683,40 @@ function recogerInfomacion() {
                  price = $("#price").val();  
                  unit = $("#btn-add").attr("unit");  
                  code = $("#btn-add").attr("id_reg");
+                 console.log(description);
+
+                 if(price == null || price == ""){  //Comprobamos si esta se selecciono concepto
+                    
+                    price = 0;
+                 }
+
+                 if(description == null || description == ""){  //Comprobamos si esta se selecciono concepto
+                    
+                    compr = $("#concept_select").hasClass("is-invalid");
+                 
+                    if(compr == true){
+                        //$("#concept_select").has("is-invalid");
+                    }else{
+                        $("#concept_select").addClass("is-invalid");
+                    }
+
+                    return false;
+                 }
+
+                 if(qty== null || qty == "" || qty == 0){  //Comprobamos si esta se selecciono concepto
+                    
+                    compr = $("#qty").hasClass("is-invalid");
+                    console.log(compr);
+                    if(compr == true){
+                        //$("#concept_select").has("is-invalid");
+                    }else{
+                        $("#qty").addClass("is-invalid");
+                    }
+
+                    return false;
+                 }
+
+
 
                  var formData = new FormData();
                  formData.append("code", code);
@@ -633,10 +728,10 @@ function recogerInfomacion() {
                  formData.append("_token", CSRF_TOKEN);
                  
 
-                 validar_collapse_card = $("#card-materials").hasClass("collapsed-card"); 
-                 console.log(validar_collapse_card);
+                /*  validar_collapse_card = $("#card-materials").hasClass("collapsed-card"); 
+                 console.log(validar_collapse_card); */
                  
-                 validar_collapse_card == true ? $("#plus-btn-"+category).click() : console.log("Card abierto");
+                 //validar_collapse_card == true ? $("#plus-btn-"+category).click() : console.log("Card abierto");
 
                 $.ajax({
                     type: "POST",
@@ -646,7 +741,48 @@ function recogerInfomacion() {
                     data: formData,
                     dataType: "JSON",
                     success: function (response) {
-                        tab.ajax.reload(false, null);
+                        tab = response["datatable"];
+                        console.log(response);
+                        switch(tab){
+                            case "tab1":
+                                tab1.ajax.reload(false, null, true);
+                                console.log(response["total_am"]);
+                                $("#total_amount_material").text(response["total_am"]);
+                                break;
+                                
+                                case "tab2":
+                                tab2.ajax.reload(false, null, true);
+                                break;
+
+                                case "tab3":
+                                tab3.ajax.reload(false, null, true);
+                                break;
+
+                                case "tab4":
+                                tab4.ajax.reload(false, null, true);
+                                break;
+
+                                default:break;
+                        };
+
+                        Swal.fire({
+         
+                        title: 'Added!',
+                        text: "Registry added successfully.",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ok!'
+                        });
+
+                        //Seteanod
+                        $("#category option[value=null").attr("selected",true).change();
+                        $("#btn-add").attr("id_reg", null);
+                        $("#concept_select").val(null);
+                        $("#qty").val('');
+                        
+
                     }
                 });
                  
@@ -664,7 +800,7 @@ function recogerInfomacion() {
      Swal.fire({
          
          title: 'Are you sure to remove this concept?',
-         text: "You won't be able to revert this!",
+         text: "You won't be able to revert this! " + id_category,
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',
@@ -703,7 +839,27 @@ function recogerInfomacion() {
                     data: formData,
                     dataType: "JSON",
                     success: function (response) {
-                        tab.ajax.reload(false, null);
+                        tab = response["datatable"];
+                        switch(tab){
+                            case "tab1":
+                                tab1.ajax.reload(false, null, true);
+                                break;
+                                
+                                case "tab2":
+                                tab2.ajax.reload(false, null, true);
+                                break;
+
+                                case "tab3":
+                                tab3.ajax.reload(false, null, true);
+                                break;
+
+                                case "tab4":
+                                tab4.ajax.reload(false, null, true);
+                                break;
+
+                                default:break;
+                        }
+
                         Swal.fire({
          
                             title: 'Deleted!',
@@ -725,7 +881,7 @@ function recogerInfomacion() {
 
 
 
-
+ 
 
 
 

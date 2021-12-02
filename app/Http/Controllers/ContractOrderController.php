@@ -227,21 +227,25 @@ class ContractOrderController extends Controller
         switch ($category) {
             case "material":
                 $row_description = DB::table("materials")->where('id', $code)->first();
+                $datatable = "tab1";
                 $description = $row_description->description;
                 break;
 
             case "equiptment":
                 $row_description = DB::table("equiptments")->where('id', $code)->first();
+                $datatable = "tab2";
                 $description = $row_description->description;
                 break;
 
             case "labor":
                 $row_description = DB::table("labors")->where('id', $code)->first();
+                $datatable = "tab3";
                 $description = $row_description->description;
                 break;
 
             case "other":
                 $row_description = DB::table("other_expenses")->where('id', $code)->first();
+                $datatable = "tab4";
                 $description = $row_description->description;
                 break;            
         
@@ -286,9 +290,14 @@ class ContractOrderController extends Controller
 
                 }
 
-            
-
-            $arreglo = array("msj" =>  "Exito"); //"Se insertaron los datos"
+            $total = 0;
+            $rows_amounts =  DB::table($tab)->select('amount')->get();
+            foreach ($rows_amounts as $key => $value) {
+                $value = intval($value->amount);
+                $total = $total + $value;
+                
+            }
+            $arreglo = array("msj" =>  "Exito", "datatable" => $datatable, "total_am" => $total); //"Se insertaron los datos"
             return response()->json($arreglo);
 
         }else{
@@ -371,12 +380,79 @@ class ContractOrderController extends Controller
         $user_id = auth()->user()->id; 
 
         $tab = 'tmp_'. $category .'_table_' . $user_id;
+
+        switch ($category) {
+            case "material":
+                $datatable = "tab1";
+                break;
+
+            case "equiptment":
+                $datatable = "tab2";
+                break;
+
+            case "labor":
+                $datatable = "tab3";
+                break;
+
+            case "other":
+                $datatable = "tab4";
+                break;            
+        
+            default:
+                break;
+        }
       
 
         DB::table($tab)->where('id', $id)->delete();
-        $arreglo = array("msj" => "Borrado correctamente.");
+        $arreglo = array("msj" => "Borrado correctamente.", "datatable" => $datatable);
         return response()->json($arreglo);
 
+
+    }
+
+    public function check(Request $request){
+
+        $tablas_tmp = array(
+            "materials" => "tmp_material_table_",
+            "equiptments" =>  "tmp_equiptment_table_",
+            "labors" => "tmp_labor_table_",
+            "others" => "tmp_other_table_");
+        
+        foreach ($tablas_tmp as $key => $value) {
+        
+        $user_id = auth()->user()->id;     
+        $tab = $value . $user_id;
+
+        if (Schema::hasTable($tab))
+        {
+            DB::table($tab)->delete();
+            $arreglo = array("msj" =>  "Tablas Okey"); //"Se insertaron los datos"
+            echo response()->json($arreglo);
+
+        }else{
+            
+            Schema::create($tab, function (Blueprint $table) {
+                $table->id();
+                $table->string('qty');
+                $table->string('unit');
+                $table->string('code');
+                $table->string('description');
+                $table->double('price', 11, 2);
+                $table->double('amount', 11, 2);
+                
+                $table->timestamps();
+            });
+
+
+            $arreglo = array("msj" => "Se creo la tabla " . $key . ".");
+            echo response()->json($arreglo);
+        }
+
+        }    
+
+     
+        
+        
 
     }
 }

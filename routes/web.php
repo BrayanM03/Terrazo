@@ -64,6 +64,7 @@ Route::post('/getLabors', [ContractOrderController::class, 'getLabors'])->name('
 Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpenses'])->name('getOtherExpenses');
 
 //Rutas para los datos de las tablas tmp
+Route::post('/checktables', [ContractOrderController::class, 'check'])->name('checktables');
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
 Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('deletedata');
 
