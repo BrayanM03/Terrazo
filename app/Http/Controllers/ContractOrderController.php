@@ -293,10 +293,12 @@ class ContractOrderController extends Controller
             $total = 0;
             $rows_amounts =  DB::table($tab)->select('amount')->get();
             foreach ($rows_amounts as $key => $value) {
-                $value = intval($value->amount);
+                $value = floatval($value->amount);
                 $total = $total + $value;
                 
             }
+
+            $total = round($total, 2);
             $arreglo = array("msj" =>  "Exito", "datatable" => $datatable, "total_am" => $total); //"Se insertaron los datos"
             return response()->json($arreglo);
 
@@ -402,9 +404,16 @@ class ContractOrderController extends Controller
                 break;
         }
       
-
         DB::table($tab)->where('id', $id)->delete();
-        $arreglo = array("msj" => "Borrado correctamente.", "datatable" => $datatable);
+        $total = 0;
+            $rows_amounts =  DB::table($tab)->select('amount')->get();
+            foreach ($rows_amounts as $key => $value) {
+                $value = floatval($value->amount);
+                $total = $total + $value;
+                $total = round($total, 2);
+                
+            }
+        $arreglo = array("msj" => "Borrado correctamente.", "datatable" => $datatable, "total_am" => $total);
         return response()->json($arreglo);
 
 
@@ -454,5 +463,39 @@ class ContractOrderController extends Controller
         
         
 
+    }
+
+    function getNumbers()
+    {
+        $total = 0;
+        $user_id = auth()->user()->id; 
+        $tablas = array("materials" => "tmp_material_table_".$user_id,
+                        "equiptment" => "tmp_equiptment_table_".$user_id,
+                        "labor" => "tmp_labor_table_".$user_id,
+                        "other" => "tmp_other_table_".$user_id);
+        foreach($tablas as $nombre_cat => $tabla){
+            
+            $rows_amounts =  DB::table($tabla)->select('amount')->get();
+            foreach ($rows_amounts as $key => $value) {
+                $value = floatval($value->amount);
+                $total = $total + $value;
+                
+            }
+        }
+        
+        $sub_total = $total;
+        $percent = 7;
+        $contract = ($percent / 100) * $sub_total;
+        $contract_total = round($contract, 2);
+        $grand_total_in = $contract_total + $sub_total;
+        $grand_total = round($grand_total_in, 2);
+
+      
+        
+        $arreglo = array("msj" => "Borrado correctamente.",
+                         "sub_total" => $sub_total,
+                         "contract_total" => $contract_total,
+                         "grand_total" => $grand_total);
+        return response()->json($arreglo);
     }
 }

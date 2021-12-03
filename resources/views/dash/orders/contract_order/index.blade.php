@@ -210,17 +210,18 @@ function recogerInfomacion() {
      sow = $("#sow").val();
      store_number = $("#store_number").val();
 
-     let datos = new Map();
+     let datos = new FormData();
       
-         datos.set("customer_id", customer)
-         datos.set("re", re)
-         datos.set("date", date)
-         datos.set("sow", sow)
-         datos.set("store_number", store_number) 
+         datos.append("customer_id", customer);
+         datos.append("_token", CSRF_TOKEN);
+         datos.append("re", re)
+         datos.append("date", date)
+         datos.append("sow", sow)
+         datos.append("store_number", store_number) 
          flag = 0; //Validador
          
-
-      /*    for (let [key, value] of datos) {
+/* 
+         for (let [key, value] of datos) {
 
             if(value == null || value == ""){
 
@@ -234,10 +235,23 @@ function recogerInfomacion() {
                         });
                  flag = 1;       
             }      
-        } */
-        
+        }
+         */
         //Si validacion OK entonces 
         if(flag == 0){
+
+            $.ajax({
+                    type: "POST",
+                    url: "/saveGeneralDataOrder",
+                    processData: false,
+                    contentType: false,
+                    data: datos,
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            
 
                 $("#primer_form").empty(); //Borramos el primer formulario
 
@@ -293,12 +307,12 @@ function recogerInfomacion() {
                                     <div class="invalid-feedback">Choose a option</div>     
                                 </div>
 
-                                <div class="col-12 col-md-1">
+                                <div class="col-12 col-md-2">
                                     <p>Price</p> 
                                     <input class="form-control" id="price" name="price" placeholder="0.00">    
                                 </div>
 
-                                <div class="col-12 col-md-1">
+                                <div class="col-12 col-md-2">
                                     <p>Qty</p> 
                                     <input class="form-control" type="number" id="qty" name="qty" placeholder="0">  
                                     <div class="invalid-feedback">Set qty</div>   
@@ -353,6 +367,7 @@ function recogerInfomacion() {
                                     <div class="card">
                                             <div class="card-header" style="background-color: #FFE900; color: black;">
                                                 <h3 class="card-title">Equiptments table</h3>
+                                                Total: $ <div class="badge badge-primary badge-pill" width="100" id="total_amount_equiptment">0.00</div>
                                                 <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
@@ -386,6 +401,7 @@ function recogerInfomacion() {
                                     <div class="card">
                                             <div class="card-header" style="background-color: #0070B8; color: white">
                                                 <h3 class="card-title">Labors table</h3>
+                                                Total: $ <div class="badge badge-warning badge-pill" width="100" id="total_amount_labor">0.00</div>
                                                 <div class="card-tools">    
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
@@ -415,6 +431,7 @@ function recogerInfomacion() {
                                     <div class="card">
                                             <div class="card-header" style="background-color: #E60026; color: white">
                                                 <h3 class="card-title">Other expenses table</h3>
+                                                Total: $ <div class="badge badge-warning badge-pill" width="100" id="total_amount_other">0.00</div>
                                                 <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                                 </div>
@@ -439,11 +456,33 @@ function recogerInfomacion() {
                                 </div>
 
                                 
-                                    <div class="col-12 col-md-12 mt-4">
-                                        <div class="btn btn-success">Registrar</div>
-                                    </div>
-                                
-                            </div>
+                                   
+                                    <div class="col-12 col-md-4 mt-5 mb-4">
+                                      
+                                        <label>Sub total</label>
+                                        <input class="form-control" id="sub_total" type="text" placeholder="sub total" disabled></input>
+                                        
+                                    </div> 
+
+                                    <div class="col-12 col-md-4 mt-5 mb-4">
+                                       
+                                        <label>7% Subcontractor fee</label>
+                                        <input class="form-control" id="contract" type="text" placeholder="Contract fee" disabled></input>
+                                        
+                                    </div> 
+
+                                    <div class="col-12 col-md-4 mt-5 mb-4">
+                                       
+                                        <label>Grand total</label>
+                                        <input class="form-control" type="text" id="grand_total" placeholder="Grand total" disabled></input>
+                                       
+                                    </div> 
+
+
+                                        <div class="col-12 col-md-12 mt-4 mb-4">
+                                        <div class="btn btn-success mr-3" onclick="Register()">Registrar</div>  
+                                        </div>  
+                        </div>
 
                          </div>`);
 
@@ -555,7 +594,7 @@ function recogerInfomacion() {
                                 })
 
 
-                         
+                                return datos;    
 
         }
     
@@ -752,14 +791,17 @@ function recogerInfomacion() {
                                 
                                 case "tab2":
                                 tab2.ajax.reload(false, null, true);
+                                $("#total_amount_equiptment").text(response["total_am"]);
                                 break;
 
                                 case "tab3":
                                 tab3.ajax.reload(false, null, true);
+                                $("#total_amount_labor").text(response["total_am"]);
                                 break;
 
                                 case "tab4":
                                 tab4.ajax.reload(false, null, true);
+                                $("#total_amount_other").text(response["total_am"]);
                                 break;
 
                                 default:break;
@@ -781,6 +823,22 @@ function recogerInfomacion() {
                         $("#btn-add").attr("id_reg", null);
                         $("#concept_select").val(null);
                         $("#qty").val('');
+
+                        //Subtotal Subcontractor and Grand Total
+
+                        $.ajax({
+                    type: "POST",
+                    url: "/getgrandtotal",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    dataType: "JSON",
+                    success: function (response) {
+                            $("#sub_total").val(response.sub_total);
+                            $("#contract").val(response.contract_total);
+                            $("#grand_total").val(response.grand_total);
+                        }
+                        });
                         
 
                     }
@@ -843,18 +901,22 @@ function recogerInfomacion() {
                         switch(tab){
                             case "tab1":
                                 tab1.ajax.reload(false, null, true);
+                                $("#total_amount_material").text(response["total_am"]);
                                 break;
                                 
                                 case "tab2":
                                 tab2.ajax.reload(false, null, true);
+                                $("#total_amount_equiptment").text(response["total_am"]);
                                 break;
 
                                 case "tab3":
                                 tab3.ajax.reload(false, null, true);
+                                $("#total_amount_labor").text(response["total_am"]);
                                 break;
 
                                 case "tab4":
                                 tab4.ajax.reload(false, null, true);
+                                $("#total_amount_other").text(response["total_am"]);
                                 break;
 
                                 default:break;
@@ -869,7 +931,23 @@ function recogerInfomacion() {
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Ok!'
-                            })
+                            });
+
+
+                            //Acrtualizando canty
+                            $.ajax({
+                                type: "POST",
+                                url: "/getgrandtotal",
+                                processData: false,
+                                contentType: false,
+                                data: formData,
+                                dataType: "JSON",
+                                success: function (response) {
+                                        $("#sub_total").val(response.sub_total);
+                                        $("#contract").val(response.contract_total);
+                                        $("#grand_total").val(response.grand_total);
+                                    }
+                                    });
                         
                     }
                 });
@@ -880,7 +958,24 @@ function recogerInfomacion() {
 
 
 
+function Register(){
 
+    data = new FormData();
+    
+    $.ajax({
+                    type: "POST",
+                    url: "/register",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            
+
+}
  
 
 

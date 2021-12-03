@@ -7,6 +7,7 @@ use App\Http\Controllers\LaborController;
 use App\Http\Controllers\OtherExpensisController; 
 
 use App\Http\Controllers\ContractOrderController; 
+use App\Http\Controllers\OrdersController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,7 @@ Route::post('/getOtherExpenses', [ContractOrderController::class, 'getOtherExpen
 Route::post('/checktables', [ContractOrderController::class, 'check'])->name('checktables');
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
 Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('deletedata');
+Route::post('/getgrandtotal', [ContractOrderController::class, 'getNumbers'])->name('getgrandtotal');
 
 
 Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');
@@ -74,3 +76,6 @@ Route::get('datatable/equiptment_tmp', 'App\Http\Controllers\DatatableController
 Route::get('datatable/labor_tmp', 'App\Http\Controllers\DatatableController@getLaborTemp')->name('datatable.labor_tmp');
 Route::get('datatable/other_tmp', 'App\Http\Controllers\DatatableController@getOtherTemp')->name('datatable.other_tmp');
 
+
+Route::post('/saveGeneralDataOrder', [OrdersController::class, 'saveHeader'])->name('saveGeneralDataOrder');
+Route::post('/register', [OrdersController::class, 'register'])->name('register');
