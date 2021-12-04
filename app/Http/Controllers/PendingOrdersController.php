@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\HistoryExport;
+use App\Models\History;
 
 class PendingOrdersController extends Controller
 {
@@ -13,7 +17,7 @@ class PendingOrdersController extends Controller
      */
     public function index()
     {
-        return view('dash.history.pending.index');
+        return view('dash.history.pending_orders.index');
     }
 
     /**
@@ -57,6 +61,7 @@ class PendingOrdersController extends Controller
     public function edit($id)
     {
         //
+        return Excel::download(new HistoryExport, 'pending-orders.xlsx');
     }
 
     /**
@@ -81,4 +86,16 @@ class PendingOrdersController extends Controller
     {
         //
     }
+
+/**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id)
+    {
+        return Excel::download(new HistoryExport, 'pending-orders.xlsx');
+    }
+
 }

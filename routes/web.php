@@ -8,6 +8,7 @@ use App\Http\Controllers\OtherExpensisController;
 
 use App\Http\Controllers\ContractOrderController; 
 use App\Http\Controllers\OrdersController; 
+use App\Http\Controllers\PendingOrdersController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -78,8 +79,10 @@ Route::get('datatable/other_tmp', 'App\Http\Controllers\DatatableController@getO
 
 
 Route::post('/saveGeneralDataOrder', [OrdersController::class, 'saveHeader'])->name('saveGeneralDataOrder');
-Route::post('/register', [OrdersController::class, 'register'])->name('register');
+Route::post('/register_order', [OrdersController::class, 'register'])->name('register_order');
 
 //History
 Route::resource('dash/history/pending_orders', 'App\Http\Controllers\PendingOrdersController');
 Route::get('datatable/history', 'App\Http\Controllers\DatatableController@getHistory')->name('datatable.history');
+Route::get('/download_order', [PendingOrdersController::class, 'download'])->name('download_order');
+Route::post('orders/destroy', [PendingOrdersController::class, 'destroy'])->name('orders.destroy');

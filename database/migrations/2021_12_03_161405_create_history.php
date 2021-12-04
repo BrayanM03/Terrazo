@@ -13,7 +13,7 @@ class CreateHistory extends Migration
      */
     public function up()
     {
-        Schema::create('history', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->string('customer_id');
             $table->string('fecha');

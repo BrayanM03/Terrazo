@@ -987,7 +987,7 @@ function Register(){
     data.append("_token", CSRF_TOKEN);
     $.ajax({
                     type: "POST",
-                    url: "/register",
+                    url: "/register_order",
                     processData: false,
                     contentType: false,
                     data: data,

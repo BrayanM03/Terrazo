@@ -174,14 +174,14 @@ class DatatableController extends Controller
     }
 
     public function getHistory(){ 
-        $customers = History::select(['id', 'customer_id', 'fecha', 'store_number', 're', 'sow', 'grand_total', 'job_status', 'pay_status', 'created_at']);//->get();
+        $customers = History::select(['id', 'customer_id', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at']);//->get();
        // return $labor;
        return datatables()->of($customers)
        ->addColumn('actions', 
-       '<form action="{{ route ("customers.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
+       '<form action="{{ route ("pending_orders.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
       /*  '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'. */
-       '<button type="submit" class="btn btn-success ml-2" name="enviar" onclick="Dowload(event, {{$id}});"><i class="fas fa-file-excel"></i></button>'.
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Dowload(event, {{$id}});"><i class="fas fa-file-pdf"></i></button>'.
+       '<a href="pending_orders/{{$id}}/edit" class="btn btn-success"><i class="fas fa-file-excel"></i></a>'.
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Download(event, {{$id}}, 2);"><i class="fas fa-file-pdf"></i></button>'.
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
