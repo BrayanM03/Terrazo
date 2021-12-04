@@ -79,3 +79,7 @@ Route::get('datatable/other_tmp', 'App\Http\Controllers\DatatableController@getO
 
 Route::post('/saveGeneralDataOrder', [OrdersController::class, 'saveHeader'])->name('saveGeneralDataOrder');
 Route::post('/register', [OrdersController::class, 'register'])->name('register');
+
+//History
+Route::resource('dash/history/pending_orders', 'App\Http\Controllers\PendingOrdersController');
+Route::get('datatable/history', 'App\Http\Controllers\DatatableController@getHistory')->name('datatable.history');

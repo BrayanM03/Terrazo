@@ -274,7 +274,7 @@ return [
                 [
                     'text' => 'Pending orders',
                     'icon' => 'fas fa-fw fa-stopwatch',
-                    'url'  => '#',
+                    'url'  => 'dash/history/pending_orders ',
                 ],
                 [
                     'text' => 'Orders completed',

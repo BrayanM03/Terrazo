@@ -8,6 +8,7 @@ use App\Models\Equiptment;
 use App\Models\Material;
 use App\Models\OtherExpensis;
 use App\Models\Customer;
+use App\Models\History;
 use yajra\Datatables\Services\DataTables;
 
 use Illuminate\Support\Facades\Schema;
@@ -162,6 +163,25 @@ class DatatableController extends Controller
        ->addColumn('actions', 
        '<form action="{{ route ("customers.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
        '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'.
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
+       '</form>')
+       ->rawColumns(['actions'])
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getHistory(){ 
+        $customers = History::select(['id', 'customer_id', 'fecha', 'store_number', 're', 'sow', 'grand_total', 'job_status', 'pay_status', 'created_at']);//->get();
+       // return $labor;
+       return datatables()->of($customers)
+       ->addColumn('actions', 
+       '<form action="{{ route ("customers.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
+      /*  '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'. */
+       '<button type="submit" class="btn btn-success ml-2" name="enviar" onclick="Dowload(event, {{$id}});"><i class="fas fa-file-excel"></i></button>'.
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Dowload(event, {{$id}});"><i class="fas fa-file-pdf"></i></button>'.
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.

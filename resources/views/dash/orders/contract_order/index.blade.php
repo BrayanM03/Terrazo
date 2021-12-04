@@ -220,7 +220,7 @@ function recogerInfomacion() {
          datos.append("store_number", store_number) 
          flag = 0; //Validador
          
-/* 
+
          for (let [key, value] of datos) {
 
             if(value == null || value == ""){
@@ -236,7 +236,7 @@ function recogerInfomacion() {
                  flag = 1;       
             }      
         }
-         */
+        
         //Si validacion OK entonces 
         if(flag == 0){
 
@@ -961,7 +961,30 @@ function recogerInfomacion() {
 function Register(){
 
     data = new FormData();
-    
+    $sub_total = $("#sub_total").val();
+    $contract = $("#contract").val();
+    $grand_total = $("#grand_total").val();
+
+    if($sub_total == null || $sub_total == '' || $grand_total == null || $grand_total == '' || $contract == null || $contract ==''){
+
+        Swal.fire({
+         
+         title: 'Warning!',
+         text: "Add a concept please!",
+         icon: 'warning',
+         showCancelButton: false,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Ok!'
+         });
+
+    }else{
+
+
+        data.append('sub_total', $sub_total)
+    data.append('contract', $contract)
+    data.append('grand_total', $grand_total)
+    data.append("_token", CSRF_TOKEN);
     $.ajax({
                     type: "POST",
                     url: "/register",
@@ -970,9 +993,30 @@ function Register(){
                     data: data,
                     dataType: "JSON",
                     success: function (response) {
-                        console.log(response);
+                        if(response.estatus == 'ok'){
+                            $("#primer_form").empty();
+                            $("#primer_form").append(`
+                            <div class="contenedor animate__animated animate__headShake">
+                        
+                                <div class="row mt-5 mb-5 justify-content-center">
+                                    <div class="col-12 col-md-12">
+                                        <img src="{{asset('img/check-correct.gif')}}" style="width:100px;"></img>
+                                        <h4 class="animate__animated animate__bounceIn">Registered Successfully!</h4>
+                                    </div> 
+                                    <div class="col-12 col-md-4 mt-4">
+                                        <a href="contract_order"><div class="btn btn-info">Acept!</div></a>
+                                    </div>   
+                                </div>
+                                
+                            </div>
+                            `);
+                        }
                     }
                 });
+
+    }
+
+   
             
 
 }

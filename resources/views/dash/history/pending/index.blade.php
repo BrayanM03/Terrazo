@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Customers')
+@section('title', 'Material')
 
 @section('content_header')
 <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <h1>Customers</h1>
+    <h1>Pending orders</h1>
     <div class="row justify-content-center">
     <div class="col-12 col-md-3">
 @stop
@@ -13,28 +13,32 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>List of customers, you can add more.</p>
+    <p>List of pending orders.</p>
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
         <div class="container">
         <div class="row justify-content-end">
             <div class="col-12 col-md-12">
-                <a href="customers/create"><div class="btn btn-info">Add</div></a>
+                {{-- <a href="materials/create"><div class="btn btn-info">Add</div></a> --}}
             </div>    
         </div>   
 
         <div class="row mt-3 justify-content-center">
             <div class="col-12 col-md-12">
                 
-                 <table id="customers_table" class="table table-bordered table-hover responsive">
+                 <table id="history_table" class="table table-bordered table-hover responsive">
                 <thead class="thead-dark">
-                    <th>#</th>
-                    <th>Store number</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Number</th>
-                     <th>Email</th>
-                     <th>Actions</th>
+                     <th>#</th>
+                     <th>Customer</th>
+                     <th>Date</th>
+                     <th>Store N</th>
+                     <th>Re</th>
+                     <th>Sow</th>
+                     <th>Grand Total</th>
+                     <th>Job Status</th>
+                     <th>Pay Status</th>
+                     <th>Created ad</th> 
+                     <th>Actions</th>   
 
                 </thead>
                {{--  <tbody class="bg-white">
@@ -108,20 +112,30 @@
 
 <script>
  
- $("#customers_table").DataTable({
+ $("#history_table").DataTable({
  
  processing: true,
  serverSide: true,
  "scrollY": "400px",
  "responsive" : true,
- "ajax": "{{route('datatable.customer')}}",
+ "ajax": "{{route('datatable.history')}}",
+ "language": {
+            processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
  "columns": [
      {data: 'id'},
+     {data: 'customer_id'},
+     {data: 'fecha'},
      {data: 'store_number'},
-     {data: 'name'},
-     {data: 'address'},
-     {data: 'number'},
-     {data: 'email'},
+     {data: 're'},
+     {data: 'sow'},
+     {data: 'grand_total'},
+     {data: null, render: function(row){
+        return "<div class='btn btn-warning'>"+ row.job_status+"</div>"; +"</div>"
+     }},
+     {data: null, render: function(row){
+        return "<div class='btn btn-secondary'>"+ row.pay_status+"</div>"; +"</div>"
+     }},
+     {data: 'created_at'},
      {data: 'actions'},
      /* {data: null, render: function(){
          return '<a class="btn btn-warning mr-2"><i class="fas fa-edit"></i></a>'+
@@ -137,8 +151,8 @@
      form = $("#"+id);
      Swal.fire({
          
-         title: 'Are you sure to remove this customer?',
-         text: "You won't be able to revert this!" ,
+         title: 'Are you sure to remove this order?',
+         text: "You won't be able to revert this! id: " + id,
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',
