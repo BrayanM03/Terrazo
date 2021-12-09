@@ -20,7 +20,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
 
-class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithStyles, WithDrawings, WithTitle//FromView //FromArray //FromCollection
+class CostsExport implements WithHeadings, FromArray, WithColumnWidths, WithStyles, WithDrawings, WithTitle//FromView //FromArray //FromCollection
 {
 
     protected $invoices;
@@ -52,9 +52,9 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
     public function headings(): array { 
 
         return[
-            ['','','109 DOMINO DR N RUSKIN FL 33570'],
-            ['', '','(813)220-8933'],
-            ['','','JOSEJJTERRAZZOTILE.LLC@GMAIL.COM'], 
+            ['','109 DOMINO DR N RUSKIN FL 33570'],
+            ['', '(813)220-8933'],
+            ['','JOSEJJTERRAZZOTILE.LLC@GMAIL.COM'], 
         ];
     }
 
@@ -65,7 +65,7 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
     public function columnWidths(): array
     {
         return [
-           'A' => 12,
+           'A' => 25,
             'B' =>35,   
             'D'=>12         
         ];
@@ -79,17 +79,28 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
         $sheet->mergeCells("C1:F1");
         $sheet->mergeCells("C2:F2");
         $sheet->mergeCells("C3:F3");
+        $sheet->mergeCells("A8:E8");
         $sheet->mergeCells("B9:B10");
         $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A8')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('A8')->getAlignment()->setVertical('center');
+        $sheet->getStyle('B2')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B21')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B22')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B22')->getAlignment()->setVertical('center');
+        $sheet->getStyle('B23')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B23')->getAlignment()->setVertical('center');
         return [
             // Style the first row as bold text.
             11    =>  ['font' => ['bold' => true]],
-            "A5" => ['font' => ['bold' => true]],
-            "A6" => ['font' => ['bold' => true]],
-            "A7" => ['font' => ['bold' => true]],
-            "A9" => ['font' => ['bold' => true]],
+            "A13" => ['font' => ['bold' => true]],
+            "A14" => ['font' => ['bold' => true]],
+            "A15" => ['font' => ['bold' => true]],
+            "A16" => ['font' => ['bold' => true]],
+            "A17" => ['font' => ['bold' => true]],
+            "A18" => ['font' => ['bold' => true], ['italic' => true]], ['size' =>15],
             "C5" => ['font' => ['bold' => true]],
 
             
@@ -100,7 +111,7 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
 
     public function title(): string
     {
-        return 'GENERAL ORDER';
+        return 'COST';
     }
 
   /*   public function sheets(): array

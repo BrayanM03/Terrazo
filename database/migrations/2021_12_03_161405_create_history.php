@@ -16,6 +16,7 @@ class CreateHistory extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->string('customer_id');
+            $table->string('customer_name');
             $table->string('fecha');
             $table->string('store_number');
             $table->string('re');

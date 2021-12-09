@@ -7,7 +7,7 @@
 @section('content_header')
 <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <h1>Contract Order</h1>
+    <h1>Change Order</h1>
     <div class="row justify-content-center">
     <div class="col-12 col-md-3">
 @stop
@@ -15,7 +15,7 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>Generate a new work order Frome here.</p>
+    <p>From here you can apply changes to the main order.</p>
     
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
@@ -28,25 +28,25 @@
                         <div class="col-12 col-md-7 p-3">
                             <label for="customer">Customer:</label><br>
                             <select type="text" class="form-control" id="customer" name="customer">
-                               {{--  <option value="null">Select a customer</option> --}}
+                                <option value="{{$order->customer_id}}">{{$order->customer_name}}</option>
                                
                             </select>   
                         </div>
                         <div class="col-12 col-md-3 p-3">
                             <label for="date">Date</label><br>
-                            <input class="form-control" type="date" id="date" name="date">
+                            <input class="form-control" type="date" value="{{$order->fecha}}" id="date" name="date">
                         </div>
                     </div>
 
                     <div class="row justify-3 justify-content-center">
                         <div class="col-12 col-md-6 p-3">
                             <label for="re">Proyect</label><br>
-                            <input type="text" class="form-control" name="proyect" id="proyect" placeholder="Type proyect...">
+                            <input type="text" class="form-control" name="proyect" id="proyect" value="{{$order->proyect}}" placeholder="Type proyect...">
                         </div>
 
                         <div class="col-12 col-md-4 p-3">
                             <label for="units">Units</label><br>
-                            <input type="text" class="form-control" name="units" id="units" placeholder="Type proyect...">
+                            <input type="text" class="form-control" name="units" value="{{$order->units}}" id="units" placeholder="Type proyect...">
                         </div>
                     </div>
 
@@ -54,26 +54,26 @@
                     <div class="row justify-3 justify-content-center">
                         <div class="col-12 col-md-7 p-3">
                             <label for="re">Re</label><br>
-                            <input type="text" class="form-control" name="re" id="re" placeholder="Type...">
+                            <input type="text" class="form-control" value="{{$order->re}}" name="re" id="re" placeholder="Type...">
                         </div>
 
                         <div class="col-12 col-md-3 p-3">
                             <label for="re">Store number</label><br>
-                            <input type="text" class="form-control disabled" name="store_number" id="store_number" placeholder="Store number" disabled>
+                            <input type="text" class="form-control" value="{{$order->store_number}}" name="store_number" id="store_number" placeholder="Store number">
                         </div>
                     </div>
 
                     <div class="row justify-3 justify-content-center mb-3">
                         <div class="col-12 col-md-10 p-3">
                             <label for="re">Type Direccion...</label><br>
-                            <input type="text" class="form-control" name="direction" id="direction" placeholder="Direction...">
+                            <input type="text" class="form-control" value="{{$order->direction}}" name="direction" id="direction" placeholder="Direction...">
                              </div>
                     </div>
 
                     <div class="row justify-3 justify-content-center mb-3">
                         <div class="col-12 col-md-10 p-3">
                             <label for="re">Sow</label><br>
-                            <textarea type="text" class="form-control" name="sow" id="sow" placeholder="Type sow"></textarea>
+                            <textarea type="text" class="form-control" name="sow" id="sow" placeholder="Type sow">{{$order->sow}}</textarea>
                         </div>
                     </div>
 
@@ -214,8 +214,12 @@ function formatRepo (repo) {
   return $container;
 }
 
-function formatRepoSelection (repo) {
-  $("#store_number").val(repo.code_store)  
+function formatRepoSelection (repo) { 
+   
+  if(repo.code_store !== undefined){
+      console.log(repo.code_store);
+  $("#store_number").val(repo.code_store)
+  }
   return repo.text || repo.code_store;
   
 }
@@ -372,7 +376,7 @@ function recogerInfomacion() {
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unit</th>
-                                                        <th>Code</th>
+                                                        
                                                         <th>Materials</th>
                                                         <th>Unit Price</th>
                                                         <th>Amount</th>
@@ -406,7 +410,7 @@ function recogerInfomacion() {
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
-                                                        <th>Code</th>
+                                                      
                                                         <th>Equiptments</th>
                                                         <th>Unit Price</th>
                                                         <th>Amount</th>
@@ -439,7 +443,7 @@ function recogerInfomacion() {
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
-                                                        <th>Code</th>
+                                                        
                                                         <th>Labors</th>
                                                         <th>Price per hour</th>
                                                         <th>Amount</th>
@@ -469,7 +473,7 @@ function recogerInfomacion() {
                                                         <th>#</th>
                                                         <th>Qty</th>
                                                         <th>Unity</th>
-                                                        <th>Code</th>
+                                                        
                                                         <th>Other expenses</th>
                                                         <th>Unit Price</th>
                                                         <th>Amount</th>
@@ -512,6 +516,11 @@ function recogerInfomacion() {
 
                          </div>`);
 
+                        
+
+                         id_order = {{$order->id_order}}
+
+
                         //Definiendo datatables
                          tab1 = $("#materials_table").DataTable({
  
@@ -519,12 +528,24 @@ function recogerInfomacion() {
                             serverSide: true,
                             "scrollY": "250px",
                             "responsive" : true,
-                            "ajax": "{{route('datatable.material_tmp')}}",
+                            "ajax":  {
+                                "headers": {
+                                    'CSRFToken': CSRF_TOKEN
+                                },
+                                "method": "POST",
+                                "processData": "false",
+                                "contentType": "false",
+                                "url": "{{route('datatable.material_detail_get', $order->id)}}",
+                                "data": function(d){
+                                    d.token = CSRF_TOKEN;
+                                    d.order_id = id_order;
+                                }
+                            },
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
-                                {data: 'code'},
+                          /*       {data: 'code'}, */
                                 {data: 'description'},
                                 {data: 'price'},
                                 {data: 'amount'},
@@ -543,12 +564,15 @@ function recogerInfomacion() {
                             serverSide: true,
                             "scrollY": "250px",
                             "responsive" : true,
-                            "ajax": "{{route('datatable.equiptment_tmp')}}",
+                            "ajax":  {
+                                
+                                "url": "{{route('datatable.equiptment_detail_get', $order->id)}}",
+                                "dataSrc": {"order_id":"{{$order->id}}","_token": CSRF_TOKEN}},
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
-                                {data: 'code'},
+                               /*  {data: 'code'}, */
                                 {data: 'description'},
                                 {data: 'price'},
                                 {data: 'amount'},
@@ -567,12 +591,15 @@ function recogerInfomacion() {
                             serverSide: true,
                             "scrollY": "250px",
                             "responsive" : true,
-                            "ajax": "{{route('datatable.labor_tmp')}}",
+                            "ajax":  {
+                                
+                                "url": "{{route('datatable.labor_detail_get', $order->id)}}",
+                                "dataSrc": {"order_id":"{{$order->id}}", "_token": CSRF_TOKEN}},
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
-                                {data: 'code'},
+                               /*  {data: 'code'}, */
                                 {data: 'description'},
                                 {data: 'price'},
                                 {data: 'amount'},
@@ -591,12 +618,16 @@ function recogerInfomacion() {
                             serverSide: true,
                             "scrollY": "250px",
                             "responsive" : true,
-                            "ajax": "{{route('datatable.other_tmp')}}",
+                            "ajax": {
+                                
+                                "url": "{{route('datatable.other_detail_get', $order->id)}}",
+                                "dataSrc": {"order_id":"{{$order->id}}", "_token":CSRF_TOKEN}},
+
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
-                                {data: 'code'},
+                               /*  {data: 'code'}, */
                                 {data: 'description'},
                                 {data: 'price'},
                                 {data: 'amount'},

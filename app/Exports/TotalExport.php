@@ -20,7 +20,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
 
-class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithStyles, WithDrawings, WithTitle//FromView //FromArray //FromCollection
+class TotalExport implements WithHeadings, FromArray, WithColumnWidths, WithStyles, WithDrawings, WithTitle//FromView //FromArray //FromCollection
 {
 
     protected $invoices;
@@ -80,9 +80,23 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
         $sheet->mergeCells("C2:F2");
         $sheet->mergeCells("C3:F3");
         $sheet->mergeCells("B9:B10");
+        $sheet->mergeCells("A12:F12");
+        $sheet->mergeCells("A14:F14");
+        $sheet->mergeCells("A20:F20");
+        $sheet->mergeCells("A21:F21");
+        $sheet->mergeCells("A22:F22");
+
+        $sheet->getRowDimension(14)->setRowHeight(150);
+        $sheet->getStyle('A14')->getAlignment()->setWrapText(true);
         $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getAlignment()->setVertical('center');
+        $sheet->getStyle('B15')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('B16')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('B17')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('A20')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A21')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A22')->getAlignment()->setHorizontal('center');
         return [
             // Style the first row as bold text.
             11    =>  ['font' => ['bold' => true]],
@@ -100,7 +114,7 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
 
     public function title(): string
     {
-        return 'GENERAL ORDER';
+        return 'TOTAL';
     }
 
   /*   public function sheets(): array

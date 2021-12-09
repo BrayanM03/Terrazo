@@ -277,9 +277,14 @@ return [
                     'url'  => 'dash/history/pending_orders',
                 ],
                 [
+                    'text' => 'Approved orders',
+                    'icon' => 'fas fa-fw fa-thumbs-up',
+                    'url'  => 'dash/history/approved_orders',
+                ],
+                [
                     'text' => 'Orders completed',
-                    'icon' => 'fas fa-fw fa-archive',
-                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-clipboard-check',
+                    'url'  => 'dash/history/orders_completed',
                 ],
 
                 

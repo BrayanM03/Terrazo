@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <h1>Pending orders</h1>
+    <h1>Completed orders</h1>
     <div class="row justify-content-center">
     <div class="col-12 col-md-3">
 @stop
@@ -13,7 +13,7 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>List of pending orders.</p>
+    <p>List of completed or canceled orders.</p>
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
         <div class="container">
@@ -120,7 +120,7 @@
  serverSide: true,
  "scrollY": "400px",
  "responsive" : true,
- "ajax": "{{route('datatable.history')}}",
+ "ajax": "{{route('datatable.history_completed')}}",
  "language": {
             processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
  "columns": [

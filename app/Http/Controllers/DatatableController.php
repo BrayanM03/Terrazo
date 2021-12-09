@@ -9,6 +9,7 @@ use App\Models\Material;
 use App\Models\OtherExpensis;
 use App\Models\Customer;
 use App\Models\History;
+use App\Models\Detail;
 use yajra\Datatables\Services\DataTables;
 
 use Illuminate\Support\Facades\Schema;
@@ -71,7 +72,7 @@ class DatatableController extends Controller
     }
 
     public function getMaterialTemp(){
-
+       
         $user_id = auth()->user()->id; 
         $tab = 'tmp_material_table_' . $user_id; 
         $material = DB::table($tab)->get();
@@ -86,6 +87,68 @@ class DatatableController extends Controller
        /* return DataTables::of($labor)->make(); */
       
     }
+
+    public function getMaterialDetail(Request $request){
+ 
+        $order_id = $request->order_id;
+        $material = Detail::select(['id', 'qty', 'unit', 'description', 'unit_price', 'amount'])->where('category', 'material')->Where('id_order', $order_id)->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getEquiptmentDetail(Request $request){
+        $order_id = $request->order_id;
+        $material = Detail::select(['id', 'qty', 'unit', 'description', 'unit_price', 'amount'])->where('id_order', $order_id)->Where('category', 'equiptment')->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getLaborDetail(Request $request){
+        $order_id = $request->order_id;
+        $material = Detail::select(['id', 'qty', 'unit', 'description', 'unit_price', 'amount'])->where('id_order', $order_id)->Where('category', 'labor')->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getOtherDetail(Request $request){
+        $order_id = $request->order_id;
+        $material = Detail::select(['id', 'qty', 'unit', 'description', 'unit_price', 'amount'])->where('id_order', $order_id)->Where('category', 'other')->get();
+ 
+       return datatables()->of($material)
+       ->addColumn('actions',
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}},1);"><i class="fas fa-trash"></i></button>')
+       ->rawColumns(['actions']) 
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
 
 
     public function equiptment(){ 
@@ -174,14 +237,13 @@ class DatatableController extends Controller
     }
 
     public function getHistory(){ 
-        $customers = History::select(['id', 'customer_id', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at']);//->get();
+        $customers = History::select(['id', 'customer_name', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at'])->where('job_status', 'Pending');//->get();
        // return $labor;
        return datatables()->of($customers)
        ->addColumn('actions', 
        '<form action="{{ route ("pending_orders.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
       /*  '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'. */
        '<a href="pending_orders/{{$id}}/edit" class="btn btn-success"><i class="fas fa-file-excel"></i></a>'.
-       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Download(event, {{$id}}, 2);"><i class="fas fa-file-pdf"></i></button>'.
        '@csrf'.
        '<input type="hidden" name="_method" value="DELETE">' .
        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
@@ -190,5 +252,59 @@ class DatatableController extends Controller
        ->toJson();
        /* return DataTables::of($labor)->make(); */
       
+    }
+
+    public function getHistoryApproved(){ 
+        $customers = History::select(['id', 'customer_name', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at'])->where('job_status', 'Approved');//->get();
+       // return $labor;
+       return datatables()->of($customers)
+       ->addColumn('actions', 
+       '<form action="{{ route ("pending_orders.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
+      /*  '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'. */
+       '<a href="pending_orders/{{$id}}/edit" class="btn btn-success"><i class="fas fa-file-excel"></i></a>'.
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
+       '</form>')
+       ->rawColumns(['actions'])
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getHistoryCompleted(){ 
+        $customers = History::select(['id', 'customer_name', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at'])->where('job_status', 'Completed')->orWhere('job_status', 'Canceled');//->get();
+       // return $labor;
+       return datatables()->of($customers)
+       ->addColumn('actions', 
+       '<form action="{{ route ("pending_orders.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
+      /*  '<a href="customers/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'. */
+       '<a href="pending_orders/{{$id}}/edit" class="btn btn-success"><i class="fas fa-file-excel"></i></a>'.
+       '@csrf'.
+       '<input type="hidden" name="_method" value="DELETE">' .
+       '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
+       '</form>')
+       ->rawColumns(['actions'])
+       ->toJson();
+       /* return DataTables::of($labor)->make(); */
+      
+    }
+
+    public function getHistoryGeneral(){
+
+        $customers = History::select(['id', 'customer_name', 'fecha', 'store_number', 're', 'sow', 'sub_total', 'contract_fee', 'grand_total', 'job_status', 'pay_status', 'created_at']);//->get();
+        // return $labor;
+        return datatables()->of($customers)
+        ->addColumn('actions', 
+        '<form action="{{ route ("pending_orders.destroy", $id )}}" id="{{$id}}" class="eliminar_customers" method="POST" style="display:flex;">'.
+        '<a href="change_order/{{ $id}}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>'.
+        '<a href="change_order/{{$id}}/edit" class="btn btn-success ml-2"><i class="fas fa-file-excel"></i></a>'.
+        '@csrf'.
+        '<input type="hidden" name="_method" value="DELETE">' .
+        '<button type="submit" class="btn btn-danger ml-2" name="enviar" onclick="Llamar(event, {{$id}});"><i class="fas fa-trash"></i></button>'.
+        '</form>')
+        ->rawColumns(['actions'])
+        ->toJson();
+
     }
 }

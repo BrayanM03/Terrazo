@@ -13,7 +13,7 @@
 @section('content')
     <div class="row justify-content-center">
     <div class="col-12 col-md-12 text-center">
-    <p>List of pending orders.</p>
+    <p>List of approved orders.</p>
     <div class="row justify-content-center">
      <div class="col-12 col-md-12">
         <div class="container">
@@ -120,7 +120,7 @@
  serverSide: true,
  "scrollY": "400px",
  "responsive" : true,
- "ajax": "{{route('datatable.history')}}",
+ "ajax": "{{route('datatable.history_approved')}}",
  "language": {
             processing: '<i class="fa fa-spinner fa-spin fa-fw"></i><span class="sr-only">Loading...</span> '},
  "columns": [

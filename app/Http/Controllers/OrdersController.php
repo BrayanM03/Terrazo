@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use App\Models\History;
-
+use App\Models\Customer;
 
 date_default_timezone_set("America/Matamoros");
 
@@ -18,16 +18,26 @@ class OrdersController extends Controller
     function saveHeader(Request $request)
     {
         $customer_id = $request->customer_id;
+        $customer = Customer::find($customer_id);
+        $customer_name = $customer->name;
+
         $date = $request->date;
         $re = $request->re;
         $sow = $request->sow;
         $store_number = $request->store_number;
+        $proyect = $request->proyect;
+        $units = $request->units;
+        $direction = $request->direction;
 
         $request->session()->put('customer_id', $customer_id);
+        $request->session()->put('customer_name', $customer_name);
         $request->session()->put('date', $date);
         $request->session()->put('re', $re);
         $request->session()->put('sow', $sow);
         $request->session()->put('store_number', $store_number);
+        $request->session()->put('proyect', $proyect);
+        $request->session()->put('units', $units);
+        $request->session()->put('direction', $direction);
         
     }
 
@@ -35,10 +45,14 @@ class OrdersController extends Controller
     {
         $user_id = auth()->user()->id; 
         $customer_id =  $request->session()->get('customer_id');
+        $customer_name = $request->session()->get('customer_name');
         $date = $request->session()->get('date');
         $re = $request->session()->get('re');
         $sow = $request->session()->get('sow');
         $store_number =$request->session()->get('store_number');
+        $proyect = $request->session()->get('proyect');
+        $units = $request->session()->get('units');
+        $direction = $request->session()->get('direction');
         $sub_total = $request->sub_total;
         $contract = $request->contract;
         $grand_total = $request->grand_total;
@@ -51,8 +65,12 @@ class OrdersController extends Controller
 
         $data = History::create([
             'customer_id'=> $customer_id,
+            'customer'=> $customer_name,
             'fecha'=>$date,
             'store_number'=>$store_number,
+            'proyect' => $proyect,
+            'direction' => $direction,
+            'units' => $units,
             're' => $re,
             'sow' => $sow,
             'sub_total' => $sub_total,

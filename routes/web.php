@@ -9,6 +9,10 @@ use App\Http\Controllers\OtherExpensisController;
 use App\Http\Controllers\ContractOrderController; 
 use App\Http\Controllers\OrdersController; 
 use App\Http\Controllers\PendingOrdersController; 
+use App\Http\Controllers\ChangeOrderController; 
+use App\Http\Controllers\OrderStatusController;
+
+use App\Http\Controllers\DatatableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +63,13 @@ Route::get('dash/orders','App\Http\Controllers\NewOrderController@index');
 Route::resource('dash/orders/contract_order','App\Http\Controllers\ContractOrderController');
 Route::post('/getCustomers', [ContractOrderController::class, 'getCustomers'])->name('getCustomers');
 
+//rutas change order order
+Route::resource('dash/orders/change_order','App\Http\Controllers\ChangeOrderController');
+Route::get('datatable/history_general', 'App\Http\Controllers\DatatableController@getHistoryGeneral')->name('datatable.history_general');
+Route::post('orders/destroy', [ChangeOrderController::class, 'destroy'])->name('orders.destroy');
+
+
+
 //Rutas select2 Contract Concepts
 Route::post('/getMaterials', [ContractOrderController::class, 'getMaterials'])->name('getMaterials');
 Route::post('/getEquiptments', [ContractOrderController::class, 'getEquiptments'])->name('getEquiptments');
@@ -77,12 +88,28 @@ Route::get('datatable/equiptment_tmp', 'App\Http\Controllers\DatatableController
 Route::get('datatable/labor_tmp', 'App\Http\Controllers\DatatableController@getLaborTemp')->name('datatable.labor_tmp');
 Route::get('datatable/other_tmp', 'App\Http\Controllers\DatatableController@getOtherTemp')->name('datatable.other_tmp');
 
+Route::post('datatable/material_detail_get', [DatatableController::class, 'getMaterialDetail'])->name('datatable.material_detail_get');/* 
+Route::get('datatable/material_detail_get', 'App\Http\Controllers\DatatableController@getMaterialDetail')->name('datatable.material_detail_get'); */
+Route::get('datatable/equiptment_detail_get', 'App\Http\Controllers\DatatableController@getEquiptmentDetail')->name('datatable.equiptment_detail_get');
+Route::get('datatable/labor_detail_get', 'App\Http\Controllers\DatatableController@getLaborDetail')->name('datatable.labor_detail_get');
+Route::get('datatable/other_detail_get', 'App\Http\Controllers\DatatableController@getOtherDetail')->name('datatable.other_detail_get');
+
 
 Route::post('/saveGeneralDataOrder', [OrdersController::class, 'saveHeader'])->name('saveGeneralDataOrder');
 Route::post('/register_order', [OrdersController::class, 'register'])->name('register_order');
 
 //History
 Route::resource('dash/history/pending_orders', 'App\Http\Controllers\PendingOrdersController');
+Route::resource('dash/history/approved_orders', 'App\Http\Controllers\ApprovedOrdersController');
+Route::resource('dash/history/orders_completed', 'App\Http\Controllers\CompletedOrdersController');
+
 Route::get('datatable/history', 'App\Http\Controllers\DatatableController@getHistory')->name('datatable.history');
+Route::get('datatable/history_approved', 'App\Http\Controllers\DatatableController@getHistoryApproved')->name('datatable.history_approved');
+Route::get('datatable/history_completed', 'App\Http\Controllers\DatatableController@getHistoryCompleted')->name('datatable.history_completed');
+
 Route::get('/download_order', [PendingOrdersController::class, 'download'])->name('download_order');
 Route::post('orders/destroy', [PendingOrdersController::class, 'destroy'])->name('orders.destroy');
+
+//History router
+Route::post('/changestatus', [OrderStatusController::class, 'changeStatus'])->name('changestatus');
+Route::post('/changepaystatus', [OrderStatusController::class, 'changePayStatus'])->name('changepaystatus');
