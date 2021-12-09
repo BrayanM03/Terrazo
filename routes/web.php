@@ -81,7 +81,7 @@ Route::post('/checktables', [ContractOrderController::class, 'check'])->name('ch
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
 Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('deletedata');
 Route::post('/getgrandtotal', [ContractOrderController::class, 'getNumbers'])->name('getgrandtotal');
-
+ 
 
 Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');
 Route::get('datatable/equiptment_tmp', 'App\Http\Controllers\DatatableController@getEquiptmentTemp')->name('datatable.equiptment_tmp');

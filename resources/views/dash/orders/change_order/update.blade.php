@@ -518,7 +518,7 @@ function recogerInfomacion() {
 
                         
 
-                         id_order = {{$order->id_order}}
+                         id_order = {{$order->id}}
 
 
                         //Definiendo datatables
@@ -533,11 +533,11 @@ function recogerInfomacion() {
                                     'CSRFToken': CSRF_TOKEN
                                 },
                                 "method": "POST",
-                                "processData": "false",
-                                "contentType": "false",
+                               /*  "processData": "false",
+                                "contentType": "false", */
                                 "url": "{{route('datatable.material_detail_get', $order->id)}}",
                                 "data": function(d){
-                                    d.token = CSRF_TOKEN;
+                                    d._token = "{{csrf_token()}}";
                                     d.order_id = id_order;
                                 }
                             },
@@ -547,7 +547,7 @@ function recogerInfomacion() {
                                 {data: 'unit'},
                           /*       {data: 'code'}, */
                                 {data: 'description'},
-                                {data: 'price'},
+                                {data: 'unit_price'},
                                 {data: 'amount'},
                                 {data: 'actions'},
                                
@@ -567,14 +567,18 @@ function recogerInfomacion() {
                             "ajax":  {
                                 
                                 "url": "{{route('datatable.equiptment_detail_get', $order->id)}}",
-                                "dataSrc": {"order_id":"{{$order->id}}","_token": CSRF_TOKEN}},
+                                "data": function(d){
+                                    d._token = "{{csrf_token()}}";
+                                    d.order_id = id_order;
+                                     }
+                                },
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
                                /*  {data: 'code'}, */
                                 {data: 'description'},
-                                {data: 'price'},
+                                {data: 'unit_price'},
                                 {data: 'amount'},
                                 {data: 'actions'},
                                
@@ -594,14 +598,18 @@ function recogerInfomacion() {
                             "ajax":  {
                                 
                                 "url": "{{route('datatable.labor_detail_get', $order->id)}}",
-                                "dataSrc": {"order_id":"{{$order->id}}", "_token": CSRF_TOKEN}},
+                                "data": function(d){
+                                    d._token = "{{csrf_token()}}";
+                                    d.order_id = id_order;
+                                }
+                                },
                             "columns": [
                                 {data: 'id'},
                                 {data: 'qty'},
                                 {data: 'unit'},
                                /*  {data: 'code'}, */
                                 {data: 'description'},
-                                {data: 'price'},
+                                {data: 'unit_price'},
                                 {data: 'amount'},
                                 {data: 'actions'},
                                
@@ -621,7 +629,11 @@ function recogerInfomacion() {
                             "ajax": {
                                 
                                 "url": "{{route('datatable.other_detail_get', $order->id)}}",
-                                "dataSrc": {"order_id":"{{$order->id}}", "_token":CSRF_TOKEN}},
+                                "data": function(d){
+                                    d._token = "{{csrf_token()}}";
+                                    d.order_id = id_order;
+                                }
+                                },
 
                             "columns": [
                                 {data: 'id'},
@@ -629,7 +641,7 @@ function recogerInfomacion() {
                                 {data: 'unit'},
                                /*  {data: 'code'}, */
                                 {data: 'description'},
-                                {data: 'price'},
+                                {data: 'unit_price'},
                                 {data: 'amount'},
                                 {data: 'actions'},
                                
@@ -831,7 +843,7 @@ function recogerInfomacion() {
 
                 $.ajax({
                     type: "POST",
-                    url: "/insertdata",
+                    url: "/insertchangegitdata",
                     processData: false,
                     contentType: false,
                     data: formData,

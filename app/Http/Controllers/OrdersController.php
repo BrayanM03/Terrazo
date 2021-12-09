@@ -65,7 +65,7 @@ class OrdersController extends Controller
 
         $data = History::create([
             'customer_id'=> $customer_id,
-            'customer'=> $customer_name,
+            'customer_name'=> $customer_name,
             'fecha'=>$date,
             'store_number'=>$store_number,
             'proyect' => $proyect,
