@@ -113,7 +113,8 @@ class OrdersController extends Controller
                 "unit_price" => $price,
                 "amount" => $amount,
                 "id_order" => $order_id,
-                "category" => "material"
+                "category" => "material",
+                "estatus"=> "complet"
 
             ]);
 
