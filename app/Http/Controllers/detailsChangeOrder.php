@@ -99,7 +99,10 @@ class detailsChangeOrder extends Controller
         $grand_total = round($grand_total_in, 2);
 
       
-        
+        DB::table("histories")->where('id', $order_id)->update([
+            "sub_total"=>$sub_total, "contract_fee"=>$contract, "grand_total"=>$grand_total
+        ]);
+
         $arreglo = array("msj" => "OKKK.",
                          "sub_total" => $sub_total,
                          "contract_total" => $contract_total,
@@ -144,7 +147,6 @@ class detailsChangeOrder extends Controller
 
         $category = $request->category;
         $id = $request->id;
-        $user_id = auth()->user()->id; 
 
 
         switch ($category) {
@@ -169,10 +171,30 @@ class detailsChangeOrder extends Controller
         }
       
         DB::table("details")->where('id', $id)->delete();
-        $total = 0;
-        $rows_amounts =  DB::table("details")->where('amount')->get(); //Programar esta partre
-            
-        $arreglo = array("msj" => "Borrado correctamente.", "datatable" => $datatable, "total_am" => $total);
+        
+        $order_id = $request->order_id;
+        $amount_total = DB::table('details')->where('id_order', $order_id)->sum('amount');
+        $amount_category = DB::table('details')->where('id_order', $order_id)->where('category', $category)->sum('amount');
+
+        
+
+        $total = round($amount_total, 2);
+        $sub_total = $total;
+        $percent = 7;
+        $contract = ($percent / 100) * $sub_total;
+        $contract_total = round($contract, 2);
+        $grand_total_in = $contract_total + $sub_total;
+        $grand_total = round($grand_total_in, 2);
+
+        $arreglo = array("msj" => "OKKK.",
+        "sub_total" => $sub_total,
+        "contract_total" => $contract_total,
+        "grand_total" => $grand_total,
+        "total_am" => $amount_category,
+        "datatable" => $datatable,
+        "id_order" => $order_id,);
+     
+
         return response()->json($arreglo);
 
     }

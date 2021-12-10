@@ -969,9 +969,11 @@ function recogerInfomacion() {
                 default:
                     break;
             }
+            order_id = {{$order->id}};
             var formData = new FormData();
                 formData.append("id", id);
                 formData.append("category", category);
+                formData.append("order_id", order_id)
                 formData.append("_token", CSRF_TOKEN);
 
             $.ajax({
@@ -1019,20 +1021,9 @@ function recogerInfomacion() {
                             });
 
 
-                            //Acrtualizando canty
-                            $.ajax({
-                                type: "POST",
-                                url: "/getgrandtotal",
-                                processData: false,
-                                contentType: false,
-                                data: formData,
-                                dataType: "JSON",
-                                success: function (response) {
-                                        $("#sub_total").val(response.sub_total);
+                            $("#sub_total").val(response.sub_total);
                                         $("#contract").val(response.contract_total);
                                         $("#grand_total").val(response.grand_total);
-                                    }
-                                    });
                         
                     }
                 });
