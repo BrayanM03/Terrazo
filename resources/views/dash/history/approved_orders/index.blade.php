@@ -138,6 +138,8 @@
         if(row.job_status == 'Pending'){
             btn_color = "warning";
         }else if(row.job_status == 'Approved'){
+            btn_color = "info";
+        }else if(row.job_status == 'Completed'){
             btn_color = "success";
         }else if(row.job_status == 'Canceled'){
             btn_color = "secondary";
@@ -204,6 +206,7 @@
          html: '<select class="form-control" id="status" name="status">'+
                     '<option val="Pending">Pending</option>'+
                     '<option val="Approved">Approved</option>'+
+                    '<option val="Completed">Completed</option>'+
                     '<option val="Canceled">Canceled</option>'+
                '</select>'
          }).then((result) =>{

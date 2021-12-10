@@ -13,6 +13,9 @@ use App\Http\Controllers\ChangeOrderController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\detailsChangeOrder;
 use App\Http\Controllers\DatatableController;
+use App\Http\Controllers\PanelController;
+
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
+    
     return view('dash.index');
 })->name('dash');
 
@@ -120,3 +124,7 @@ Route::post('orders/destroy', [PendingOrdersController::class, 'destroy'])->name
 //History router
 Route::post('/changestatus', [OrderStatusController::class, 'changeStatus'])->name('changestatus');
 Route::post('/changepaystatus', [OrderStatusController::class, 'changePayStatus'])->name('changepaystatus');
+
+//get data panel routes
+Route::post('/get_data_panel', [PanelController::class, 'getData'])->name('get_data_panel');
+

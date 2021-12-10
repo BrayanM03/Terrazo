@@ -137,7 +137,8 @@ class OrdersController extends Controller
                 "unit_price" => $price,
                 "amount" => $amount,
                 "id_order" => $order_id,
-                "category" => "equiptment"
+                "category" => "equiptment",
+                "estatus"=> "complet"
 
             ]);
 
@@ -160,7 +161,8 @@ class OrdersController extends Controller
                 "unit_price" => $price,
                 "amount" => $amount,
                 "id_order" => $order_id,
-                "category" => "labor"
+                "category" => "labor",
+                "estatus"=> "complet"
 
             ]);
 
@@ -183,7 +185,8 @@ class OrdersController extends Controller
                 "unit_price" => $price,
                 "amount" => $amount,
                 "id_order" => $order_id,
-                "category" => "other"
+                "category" => "other",
+                "estatus"=> "complet"
 
             ]);
 

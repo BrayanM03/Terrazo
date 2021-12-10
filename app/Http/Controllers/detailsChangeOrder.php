@@ -108,9 +108,7 @@ class detailsChangeOrder extends Controller
         $proyect = $request->session()->get('proyect');
         $units = $request->session()->get('units');
         $direction = $request->session()->get('direction');
-        $sub_total = $request->sub_total;
-        $contract = $request->contract;
-        $grand_total = $request->grand_total;
+      
         $job_status = "Pending";
         $pay_status = "Unpaid";
       
@@ -118,7 +116,7 @@ class detailsChangeOrder extends Controller
             "customer_id"=> $customer_id, "customer_name"=> $customer_name,
             "fecha"=>$date, "store_number"=> $store_number, "proyect"=> $proyect,
             "direction"=> $direction, "units"=> $units, "re"=> $re, "sow"=> $sow,
-            "sub_total"=>$sub_total, "contract_fee"=>$contract, "grand_total"=>$grand_total,
+            "sub_total"=>$total, "contract_fee"=>$contract_total, "grand_total"=>$grand_total,
 
         ]);
 
@@ -215,9 +213,7 @@ class detailsChangeOrder extends Controller
         $proyect = $request->session()->get('proyect');
         $units = $request->session()->get('units');
         $direction = $request->session()->get('direction');
-        $sub_total = $request->sub_total;
-        $contract = $request->contract;
-        $grand_total = $request->grand_total;
+  
         $job_status = "Pending";
         $pay_status = "Unpaid";
       

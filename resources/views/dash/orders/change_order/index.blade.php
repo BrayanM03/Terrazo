@@ -138,6 +138,8 @@
         if(row.job_status == 'Pending'){
             btn_color = "warning";
         }else if(row.job_status == 'Approved'){
+            btn_color = "info";
+        }else if(row.job_status == 'Completed'){
             btn_color = "success";
         }else if(row.job_status == 'Canceled'){
             btn_color = "secondary";
