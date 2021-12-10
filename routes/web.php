@@ -11,7 +11,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\PendingOrdersController; 
 use App\Http\Controllers\ChangeOrderController; 
 use App\Http\Controllers\OrderStatusController;
-
+use App\Http\Controllers\detailsChangeOrder;
 use App\Http\Controllers\DatatableController;
 
 /*
@@ -81,6 +81,13 @@ Route::post('/checktables', [ContractOrderController::class, 'check'])->name('ch
 Route::post('/insertdata', [ContractOrderController::class, 'store'])->name('insertdata');
 Route::post('/deletedata', [ContractOrderController::class, 'destroy'])->name('deletedata');
 Route::post('/getgrandtotal', [ContractOrderController::class, 'getNumbers'])->name('getgrandtotal');
+
+//Rutas change order datatables
+Route::post('/insertchangedata', [detailsChangeOrder::class, 'add'])->name('inserchangetdata');
+Route::post('/getchangegrandtotal', [detailsChangeOrder::class, 'getNumbers'])->name('getchangegrandtotal');
+Route::post('/checkchangetables', [detailsChangeOrder::class, 'check'])->name('checkchangetables');
+Route::post('/deletechangedata', [detailsChangeOrder::class, 'destroy'])->name('deletechangedata');
+
  
 
 Route::get('datatable/material_tmp', 'App\Http\Controllers\DatatableController@getMaterialTemp')->name('datatable.material_tmp');

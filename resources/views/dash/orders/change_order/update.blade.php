@@ -278,27 +278,16 @@ function recogerInfomacion() {
                     data: datos,
                     dataType: "JSON",
                     success: function (response) {
-                        console.log(response);
+                        $("#sub_total").val(response.sub_total);
+                            $("#contract").val(response.contract_total);
+                            $("#grand_total").val(response.grand_total);
                     }
                 });
             
 
                 $("#primer_form").empty(); //Borramos el primer formulario
 
-                //Hacer una peticion para comprobar la existencia de las tablas
-                formDatas = new FormData();
-                formDatas.append("_token", CSRF_TOKEN);
-                $.ajax({
-                    type: "POST",
-                    url: "/checktables",
-                    processData: false,
-                    contentType: false,
-                    data: formDatas,
-                    dataType: "JSON",
-                    success: function (response) {
-                        console.log(response.msj);
-                    }
-                });
+                
 
 
                 $("#primer_form").append(`
@@ -509,9 +498,7 @@ function recogerInfomacion() {
                                     </div> 
 
 
-                                        <div class="col-12 col-md-12 mt-4 mb-4">
-                                        <div class="btn btn-success mr-3" onclick="Register()">Registrar</div>  
-                                        </div>  
+                                        
                         </div>
 
                          </div>`);
@@ -660,12 +647,40 @@ function recogerInfomacion() {
                                     }else{
                                         $("#qty").removeClass("is-invalid");
                                     }
-                                })
+                                });
+
+
+                                 //Hacer una peticion para comprobar la existencia de las tablas
+                formDatas = new FormData();
+                order_id = {{$order->id}} 
+                formDatas.append("_token", CSRF_TOKEN);
+                formDatas.append("order_id", order_id);
+                $.ajax({
+                    type: "POST",
+                    url: "/checkchangetables",
+                    processData: false,
+                    contentType: false,
+                    data: formDatas,
+                    dataType: "JSON",
+                    success: function (response) {
+
+                        $("#total_amount_material").text(response["amount_material"]);
+                        $("#total_amount_equiptment").text(response["amount_equiptment"]);
+                        $("#total_amount_labor").text(response["amount_labor"]);
+                        $("#total_amount_other").text(response["amount_other"]);
+
+                            $("#sub_total").val(response.sub_total);
+                            $("#contract").val(response.contract_total);
+                            $("#grand_total").val(response.grand_total);
+                    }
+                });
 
 
                                 return datos;    
 
         }
+
+               
     
  }
 
@@ -825,7 +840,7 @@ function recogerInfomacion() {
                  }
 
 
-
+                 id_order = {{$order->id}}
                  var formData = new FormData();
                  formData.append("code", code);
                  formData.append("category", category);
@@ -834,6 +849,7 @@ function recogerInfomacion() {
                  formData.append("qty", qty);
                  formData.append("price", price);
                  formData.append("_token", CSRF_TOKEN);
+                 formData.append("order_id", id_order);
                  
 
                 /*  validar_collapse_card = $("#card-materials").hasClass("collapsed-card"); 
@@ -843,7 +859,7 @@ function recogerInfomacion() {
 
                 $.ajax({
                     type: "POST",
-                    url: "/insertchangegitdata",
+                    url: "/insertchangedata",
                     processData: false,
                     contentType: false,
                     data: formData,
@@ -897,7 +913,7 @@ function recogerInfomacion() {
 
                         $.ajax({
                     type: "POST",
-                    url: "/getgrandtotal",
+                    url: "/getchangegrandtotal",
                     processData: false,
                     contentType: false,
                     data: formData,
@@ -960,7 +976,7 @@ function recogerInfomacion() {
 
             $.ajax({
                     type: "POST",
-                    url: "/deletedata",
+                    url: "/deletechangedata",
                     processData: false,
                     contentType: false,
                     data: formData,

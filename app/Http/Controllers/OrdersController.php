@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\History;
 use App\Models\Customer;
 
+
 date_default_timezone_set("America/Matamoros");
 
 class OrdersController extends Controller
@@ -98,6 +99,7 @@ class OrdersController extends Controller
         foreach ($datos_tmp_material as $key => $value){
             $qty = $value->qty;
             $unit = $value->unit;
+            $code = $value->code;
             $description = $value->description;
             $price = $value->price;
             $amount = $value->amount;
@@ -106,6 +108,7 @@ class OrdersController extends Controller
 
                 "qty" => $qty,
                 "unit" => $unit,
+                "code" => $code,
                 "description" => $description,
                 "unit_price" => $price,
                 "amount" => $amount,
@@ -119,6 +122,7 @@ class OrdersController extends Controller
         foreach ($datos_tmp_equiptment as $key => $value){
             $qty = $value->qty;
             $unit = $value->unit;
+            $code = $value->code;
             $description = $value->description;
             $price = $value->price;
             $amount = $value->amount;
@@ -127,6 +131,7 @@ class OrdersController extends Controller
 
                 "qty" => $qty,
                 "unit" => $unit,
+                "code" => $code,
                 "description" => $description,
                 "unit_price" => $price,
                 "amount" => $amount,
@@ -140,6 +145,7 @@ class OrdersController extends Controller
         foreach ($datos_tmp_labor as $key => $value){
             $qty = $value->qty;
             $unit = $value->unit;
+            $code = $value->code;
             $description = $value->description;
             $price = $value->price;
             $amount = $value->amount;
@@ -148,6 +154,7 @@ class OrdersController extends Controller
 
                 "qty" => $qty,
                 "unit" => $unit,
+                "code" => $code,
                 "description" => $description,
                 "unit_price" => $price,
                 "amount" => $amount,
@@ -161,6 +168,7 @@ class OrdersController extends Controller
         foreach ($datos_tmp_other as $key => $value){
             $qty = $value->qty;
             $unit = $value->unit;
+            $code = $value->code;
             $description = $value->description;
             $price = $value->price;
             $amount = $value->amount;
@@ -169,6 +177,7 @@ class OrdersController extends Controller
 
                 "qty" => $qty,
                 "unit" => $unit,
+                "code" => $code,
                 "description" => $description,
                 "unit_price" => $price,
                 "amount" => $amount,

@@ -15,8 +15,8 @@
     <div class="col-12 col-md-12 text-center">
     <p>List of pending orders.</p>
     <div class="row justify-content-center">
-     <div class="col-12 col-md-12">
-        <div class="container">
+     <div class="col-12 col-md-12"> {{-- style="border:1px solid black" --}}
+     
         <div class="row justify-content-end">
             <div class="col-12 col-md-12">
                 {{-- <a href="materials/create"><div class="btn btn-info">Add</div></a> --}}
@@ -24,7 +24,7 @@
         </div>   
 
         <div class="row mt-3 justify-content-center">
-            <div class="col-12 col-md-12">
+            <div class="col-12 col-md-11">
                 
                  <table id="history_table" class="table table-bordered table-hover responsive">
                 <thead class="thead-dark">
@@ -64,7 +64,7 @@
             </div>    
         </div> 
            
-        </div>
+      
     </div>
     
 @stop
