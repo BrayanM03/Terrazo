@@ -98,9 +98,28 @@ class detailsChangeOrder extends Controller
         $grand_total_in = $contract_total + $sub_total;
         $grand_total = round($grand_total_in, 2);
 
+
+        $customer_id =  $request->session()->get('customer_id');
+        $customer_name = $request->session()->get('customer_name');
+        $date = $request->session()->get('date');
+        $re = $request->session()->get('re');
+        $sow = $request->session()->get('sow');
+        $store_number =$request->session()->get('store_number');
+        $proyect = $request->session()->get('proyect');
+        $units = $request->session()->get('units');
+        $direction = $request->session()->get('direction');
+        $sub_total = $request->sub_total;
+        $contract = $request->contract;
+        $grand_total = $request->grand_total;
+        $job_status = "Pending";
+        $pay_status = "Unpaid";
       
         DB::table("histories")->where('id', $order_id)->update([
-            "sub_total"=>$sub_total, "contract_fee"=>$contract, "grand_total"=>$grand_total
+            "customer_id"=> $customer_id, "customer_name"=> $customer_name,
+            "fecha"=>$date, "store_number"=> $store_number, "proyect"=> $proyect,
+            "direction"=> $direction, "units"=> $units, "re"=> $re, "sow"=> $sow,
+            "sub_total"=>$sub_total, "contract_fee"=>$contract, "grand_total"=>$grand_total,
+
         ]);
 
         $arreglo = array("msj" => "OKKK.",
@@ -185,6 +204,30 @@ class detailsChangeOrder extends Controller
         $contract_total = round($contract, 2);
         $grand_total_in = $contract_total + $sub_total;
         $grand_total = round($grand_total_in, 2);
+
+        
+        $customer_id =  $request->session()->get('customer_id');
+        $customer_name = $request->session()->get('customer_name');
+        $date = $request->session()->get('date');
+        $re = $request->session()->get('re');
+        $sow = $request->session()->get('sow');
+        $store_number =$request->session()->get('store_number');
+        $proyect = $request->session()->get('proyect');
+        $units = $request->session()->get('units');
+        $direction = $request->session()->get('direction');
+        $sub_total = $request->sub_total;
+        $contract = $request->contract;
+        $grand_total = $request->grand_total;
+        $job_status = "Pending";
+        $pay_status = "Unpaid";
+      
+        DB::table("histories")->where('id', $order_id)->update([
+            "customer_id"=> $customer_id, "customer_name"=> $customer_name,
+            "fecha"=>$date, "store_number"=> $store_number, "proyect"=> $proyect,
+            "direction"=> $direction, "units"=> $units, "re"=> $re, "sow"=> $sow,
+            "sub_total"=>$sub_total, "contract_fee"=>$contract, "grand_total"=>$grand_total,
+
+        ]);
 
         $arreglo = array("msj" => "OKKK.",
         "sub_total" => $sub_total,
