@@ -27,7 +27,7 @@
                     </span>
                     <a href="orders/contract_order" class="list-group-item list-group-item-action">New contract Order</a>
                     <a href="orders/change_order" class="list-group-item list-group-item-action">Change Order</a>
-                    <a href="corte.php" class="list-group-item list-group-item-action">Service Call</a>
+                    {{-- <a href="corte.php" class="list-group-item list-group-item-action">Service Call</a> --}}
                    
                     </div>  
             </div>    

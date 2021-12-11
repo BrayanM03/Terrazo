@@ -79,31 +79,30 @@ class TotalExport implements WithHeadings, FromArray, WithColumnWidths, WithStyl
         $sheet->mergeCells("C1:F1");
         $sheet->mergeCells("C2:F2");
         $sheet->mergeCells("C3:F3");
-        $sheet->mergeCells("B9:B10");
         $sheet->mergeCells("A12:F12");
-        $sheet->mergeCells("A14:F14");
-        $sheet->mergeCells("A20:F20");
-        $sheet->mergeCells("A21:F21");
-        $sheet->mergeCells("A22:F22");
+        $sheet->mergeCells("A16:F16");
+        $sheet->mergeCells("A23:F23");
+        $sheet->mergeCells("A24:F24");
+        $sheet->mergeCells("A25:F25");
 
-        $sheet->getRowDimension(14)->setRowHeight(150);
-        $sheet->getStyle('A14')->getAlignment()->setWrapText(true);
+        $sheet->getRowDimension(16)->setRowHeight(150);
+        $sheet->getStyle('A16')->getAlignment()->setWrapText(true);
         $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getAlignment()->setVertical('center');
-        $sheet->getStyle('B15')->getAlignment()->setHorizontal('right');
-        $sheet->getStyle('B16')->getAlignment()->setHorizontal('right');
-        $sheet->getStyle('B17')->getAlignment()->setHorizontal('right');
-        $sheet->getStyle('A20')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A21')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A22')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B18')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('B19')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('B20')->getAlignment()->setHorizontal('right');
+        $sheet->getStyle('A23')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A24')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A25')->getAlignment()->setHorizontal('center');
         return [
             // Style the first row as bold text.
             11    =>  ['font' => ['bold' => true]],
             "A5" => ['font' => ['bold' => true]],
             "A6" => ['font' => ['bold' => true]],
             "A7" => ['font' => ['bold' => true]],
-            "A9" => ['font' => ['bold' => true]],
+            "A14" => ['font' => ['bold' => true]],
             "C5" => ['font' => ['bold' => true]],
 
             

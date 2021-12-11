@@ -24,7 +24,7 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
 {
 
     protected $invoices;
-
+ 
     public function __construct(array $invoices){
        
         $this->invoices = $invoices;
@@ -80,9 +80,26 @@ class HistoryExport implements WithHeadings, FromArray, WithColumnWidths, WithSt
         $sheet->mergeCells("C2:F2");
         $sheet->mergeCells("C3:F3");
         $sheet->mergeCells("B9:B10");
+        $sheet->mergeCells("A8:F8");
         $sheet->getStyle('B9')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A1')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A8')->getAlignment()->setHorizontal('right');
+
+        $sheet->mergeCells("A12:F12");
+        $styleArray = [
+            'borders' => [
+                'top' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                    'color' => ['argb' => '0080FF'],
+                    
+                ],
+            
+            ],
+        ];
+        
+        $sheet->getStyle('A12:F12')->applyFromArray($styleArray);
+        
+
         return [
             // Style the first row as bold text.
             11    =>  ['font' => ['bold' => true]],

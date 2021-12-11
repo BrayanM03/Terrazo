@@ -196,6 +196,8 @@ class PendingOrdersController extends Controller
            ["Scope Of Work Provided by Publix Supermarkets"],
            ['SOW: ', $sow],
            [''],
+           [''],
+           [''],
            ['UNIT', 'MATERIAL', 'QTY', 'UNIT PRICE', 'AMOUNT'],
            $dataMaterial,
            [''],
@@ -254,7 +256,9 @@ class PendingOrdersController extends Controller
         ['DATE:', $date],
         ['Conditions Governing this Proposal (As Applicable):'],
         [$sow],
+        [''],
         ['Total: ', '$ ' .$grand_total],
+        [''],
         ['1. All electric current sufficient, lightning, water, heat, trash removal and hosting facilities shall be furnished at no expense to us.
         2. All of the above conditions form the basis of our estimate and shall become a part of ant subcontract entered into even if not signed by the addressee and typed into the subcontract prepared by the addressee.
         3. Progress billing will be monthly, due within 5 days, and the balance to be due upon completion. If progress and final payment are not received within (10) days after billing, interest shall accrue at the rate of 1% per month. This shall constitute the total agreement for payment  on this project, unless other means or method are agreed upon in writing.
@@ -262,6 +266,7 @@ class PendingOrdersController extends Controller
         5. Any extras to this contract for which a stipulated sum cannot be arrived upon, shall be performed on a “cost plus” basic, i.e. Labor cost, plus material cost 25% markup for overhead, plus 10% markup for profit.
         6. JJ Terrazzo Tile LLC is not responsible for any loss of revenue while scope work being performed. This proposal is subject to acceptance
         within-90-days and be voided or escalated at the option of the undersigned.'],
+        [''],
         ['','Company:', '_______________'],
         ['','Printed name:', '_______________'],
         ['','Accepted By:', '_______________'],
